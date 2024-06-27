@@ -1,5 +1,5 @@
 import { View, FlatList, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Styles from './main-screen.styles';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -7,6 +7,7 @@ import {
   addColor,
 } from '../../store/features/colors-sequence/colors-sequence-slice';
 import { Color } from '../../store/features/colors-sequence/interfaces';
+import Button from './button/button';
 
 const MainScreen = () => {
   const colorsSequence = useSelector(
@@ -19,9 +20,12 @@ const MainScreen = () => {
     { id: 2, name: 'red' },
     { id: 3, name: 'yellow' },
   ]);
-  const onButtonPressed = (button: Color) => {
-    dispatch(addColor(button));
-  };
+  const onButtonPressed = useCallback(
+    (button: Color) => {
+      dispatch(addColor(button));
+    },
+    [dispatch]
+  );
 
   return (
     <View style={Styles.container}>
@@ -30,13 +34,7 @@ const MainScreen = () => {
         numColumns={2}
         data={buttons}
         renderItem={({ item, index }) => (
-          <TouchableOpacity
-            onPress={() => {
-              onButtonPressed(item);
-            }}
-            key={item.id}
-            style={{ ...Styles.button, backgroundColor: item.name }}
-          />
+          <Button button={item} onButtonPressed={onButtonPressed} />
         )}
       />
     </View>
