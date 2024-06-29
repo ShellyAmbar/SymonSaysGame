@@ -3,26 +3,20 @@ import { InitialStateProps } from './interfaces';
 
 const initialState: InitialStateProps = {
   results: [],
-  sortedResultsByUser: [],
 };
 export const resultsSlice = createSlice({
   name: 'results',
   initialState: initialState,
   reducers: {
     addResult: (state, action) => {
+      console.log('res', action.payload);
+
       state.results.push(action.payload);
     },
     deleteResult: (state, action) => {
-      state.results.filter(result => result.id !== action.payload);
-    },
-    setTopResultsByName: (state, action) => {
-      const playerName = action.payload.name;
-      const playerResults = state.results.filter(
-        result => result.userName === playerName
+      state.results.filter(
+        result => result.dateCreated !== action.payload.dateCreated
       );
-      const sortedResults = playerResults.sort((a, b) => a.score - b.score);
-      console.log('sortedResults ', sortedResults);
-      state.sortedResultsByUser = sortedResults;
     },
   },
 });

@@ -10,60 +10,68 @@ import Styles from './login-screen.styles';
 import Rectangle from './rectangle/rectangle';
 import { Rect } from './interfaces';
 import { setUserName } from '../../store/features/game/game-slice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Spacer from '../../components/spacer/spacer';
 import LottieView from 'lottie-react-native';
-const LoginScreen = () => {
-  const colors = [
-    '#FF0000',
-    '#00FF00',
-    '#FFFF00',
-    '#FF00FF',
-    '#00FFFF',
-    '#FFA500',
-    '#800080',
-    '#FFC0CB',
-    '#808080',
-  ];
-
+import { GlobalColors } from '../../assets/styles/colors';
+const LoginScreen = props => {
   const [rects, setRects] = useState<Rect[]>([]);
   const [text, onChangeText] = React.useState('');
+  const playRef = useRef(null);
+  const [startSimulate, setStartSimulate] = useState(false);
+  const dispatch = useDispatch();
 
-  const simulateRects = () => {
-    if (rects.length === 30) {
-      const interval = setInterval(() => {
-        console.log(
-          'index',
-          Math.floor(Math.random() * rects.length),
-          rects.length
-        );
+  useEffect(() => {
+    console.log(rects.length);
 
-        const randomRect = rects[Math.floor(Math.random() * rects.length)];
-        randomRect.ref.current?.simulateButtonPress();
-      }, 500);
-      return () => clearInterval(interval);
-    }
-  };
+    console.log('set interval ');
+
+    let interval = setInterval(() => {
+      console.log(
+        'index',
+        Math.floor(Math.random() * rects.length),
+        rects.length
+      );
+
+      const randomRect = rects[Math.floor(Math.random() * rects.length)];
+      randomRect.ref.current?.simulateButtonPress();
+    }, 500);
+
+    return () => {
+      console.log('clear interval');
+      clearInterval(interval);
+    };
+  }, [startSimulate]);
+
   const createRects = useCallback(() => {
     for (let i = 0; i < 30; i++) {
       const ref = React.createRef();
       setRects(prev => {
-        prev.push({
-          color: colors[Math.floor(Math.random() * colors.length)],
-          ref: ref,
-        });
-        return rects;
+        let arr = [
+          ...prev,
+          {
+            color:
+              GlobalColors.buttonColors[
+                Math.floor(Math.random() * GlobalColors.buttonColors.length)
+              ],
+            ref: ref,
+          },
+        ];
+
+        return arr;
       });
     }
-    simulateRects();
-  }, []);
+    setStartSimulate(true);
+  }, [setRects]);
 
   useEffect(() => {
+    playRef?.current.play();
     createRects();
   }, [createRects]);
 
-  const createGame = () => {
-    setUserName(text);
+  const startGame = () => {
+    dispatch(setUserName(text));
+    props.navigation.replace('Main');
   };
 
   const { players } = useSelector(state => state.game);
@@ -100,12 +108,12 @@ const LoginScreen = () => {
         </>
       )}
       <Spacer size={16} />
-      <TouchableOpacity>
+      <TouchableOpacity style={Styles.playButton} onPress={() => startGame()}>
         <LottieView
-          source={require('../../assets/lotties/confettie.json')}
+          source={require('../../assets/lotties/play.json')}
           autoPlay
           loop
-          ref={animationRef}
+          ref={playRef}
         />
       </TouchableOpacity>
     </View>

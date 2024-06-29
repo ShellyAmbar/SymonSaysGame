@@ -1,7 +1,8 @@
 type Result = {
-  id: string;
+  dateCreated: string;
   userName: string;
-  score: number;
+  level: number;
+  indexInLevel: number;
 };
 type InitialStateProps = {
   results: Result[];

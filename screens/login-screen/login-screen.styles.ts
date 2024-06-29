@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { GlobalColors } from '../../assets/styles/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -30,6 +31,7 @@ export default StyleSheet.create({
     padding: 10,
     borderBottomColor: '#FFFF',
     borderBottomWidth: 1,
+    color: GlobalColors.TextColors.white,
   },
 
   list: {},
@@ -45,5 +47,11 @@ export default StyleSheet.create({
   },
   grid: {
     justifyContent: 'center',
+  },
+  playButton: {
+    width: '100%',
+    height: 200,
+    position: 'absolute',
+    bottom: 30,
   },
 });

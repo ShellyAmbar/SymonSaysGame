@@ -5,9 +5,6 @@ export default StyleSheet.create({
     backgroundColor: '#FFF',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingHorizontal: 0,
   },
 
   buttonsContainer: {
@@ -15,7 +12,9 @@ export default StyleSheet.create({
     height: '100%',
     zIndex: 0,
   },
-  content: {},
+  content: {
+    justifyContent: 'space-between',
+  },
   lottie: {
     justifyContent: 'center',
     alignItems: 'center',
