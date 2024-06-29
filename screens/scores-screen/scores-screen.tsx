@@ -1,9 +1,10 @@
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 import React from 'react';
+import Styles from './scores-screen.styles';
 
 const ScoresScreen = () => {
   return (
-    <View>
+    <View style={Styles.container}>
       <Text>ScoresScreen</Text>
     </View>
   );

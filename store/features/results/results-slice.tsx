@@ -3,6 +3,7 @@ import { InitialStateProps } from './interfaces';
 
 const initialState: InitialStateProps = {
   results: [],
+  sortedResultsByUser: [],
 };
 export const resultsSlice = createSlice({
   name: 'results',
@@ -14,19 +15,18 @@ export const resultsSlice = createSlice({
     deleteResult: (state, action) => {
       state.results.filter(result => result.id !== action.payload);
     },
-    // getTopScores: (state, action) => {
-    //   const playerName = action.payload.name;
-    //   const playerResults = state.results.filter(
-    //     result => result.userName === playerName
-    //   );
-    //   const sortedResults = playerResults.sort((a, b) => a.score - b.score);
-    //   console.log('sortedResults ', sortedResults);
-
-    // },
+    setTopResultsByName: (state, action) => {
+      const playerName = action.payload.name;
+      const playerResults = state.results.filter(
+        result => result.userName === playerName
+      );
+      const sortedResults = playerResults.sort((a, b) => a.score - b.score);
+      console.log('sortedResults ', sortedResults);
+      state.sortedResultsByUser = sortedResults;
+    },
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { addResult, deleteResult } = resultsSlice.actions;
 
 export default resultsSlice.reducer;

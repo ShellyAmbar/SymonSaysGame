@@ -11,17 +11,13 @@ export const colorsSequenceSlice = createSlice({
     updateSequence: (state, action) => {
       state.colorsSequence = [...action.payload];
     },
-    addColor: (state, action) => {
-      console.log(action.payload);
 
-      state.colorsSequence.push(action.payload);
-    },
     resetSequence: (state, action) => {
       state.colorsSequence = [];
     },
   },
 });
 
-export const { addColor, resetSequence } = colorsSequenceSlice.actions;
+export const { resetSequence } = colorsSequenceSlice.actions;
 
 export default colorsSequenceSlice.reducer;
