@@ -8,6 +8,9 @@ export const colorsSequenceSlice = createSlice({
   name: 'colorsSequence',
   initialState: initialState,
   reducers: {
+    updateSequence: (state, action) => {
+      state.colorsSequence = [...action.payload];
+    },
     addColor: (state, action) => {
       console.log(action.payload);
 

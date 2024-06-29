@@ -1,17 +1,42 @@
 import { TouchableOpacity } from 'react-native';
-import React, { memo } from 'react';
-import ButtonProps from './interfaces';
+import React, { forwardRef, memo, useImperativeHandle, useState } from 'react';
+import { ButtonProps } from './interfaces';
 import Styles from './button.styles';
-const Button = memo(({ onButtonPressed, button }: ButtonProps) => {
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        onButtonPressed(button);
-      }}
-      key={button.id}
-      style={{ ...Styles.button, backgroundColor: button.name }}
-    />
-  );
-});
+const Button = memo(
+  forwardRef(({ onButtonPressed, button, style }: ButtonProps, ref: any) => {
+    const [buttonOpacity, setButtonOpacity] = useState(1);
+    useImperativeHandle(ref, () => ({
+      simulateButtonPress: () => {
+        button.soundWav?.play();
+        setButtonOpacity(0);
+        const timeout = setTimeout(() => {
+          setButtonOpacity(1);
+          clearTimeout(timeout);
+        }, 500);
+      },
+    }));
+
+    return (
+      <TouchableOpacity
+        ref={ref}
+        onPressIn={() => setButtonOpacity(0)}
+        onPressOut={() => setButtonOpacity(1)}
+        onPress={() => {
+          console.log('button Pressed');
+
+          button.soundWav?.play();
+          onButtonPressed(button);
+        }}
+        key={button.id}
+        style={{
+          ...Styles.button,
+          ...style,
+          backgroundColor: button.name,
+          opacity: buttonOpacity,
+        }}
+      />
+    );
+  })
+);
 
 export default Button;

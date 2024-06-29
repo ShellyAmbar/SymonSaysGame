@@ -1,8 +1,16 @@
-import { Color } from '../../../store/features/colors-sequence/interfaces';
+import { ViewStyle } from 'react-native';
 
-type ButtonProps = {
-  button: Color;
-  onButtonPressed: (button: Color) => void;
+type ColorButton = {
+  name: string;
+  id: number;
+  ref: any;
+  soundWav: any;
 };
 
-export default ButtonProps;
+type ButtonProps = {
+  button: ColorButton;
+  onButtonPressed: (button: ColorButton) => void;
+  style?: ViewStyle;
+};
+
+export { ButtonProps, ColorButton };
