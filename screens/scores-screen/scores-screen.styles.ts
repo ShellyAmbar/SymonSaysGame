@@ -3,7 +3,7 @@ import { GlobalColors } from '../../assets/styles/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: GlobalColors.Brand.primary,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
@@ -12,7 +12,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    color: GlobalColors.TextColors.primary,
+    color: GlobalColors.TextColors.white,
   },
   subTitle: {
     fontSize: 18,
@@ -21,5 +21,13 @@ export default StyleSheet.create({
   text: {
     fontSize: 16,
     color: GlobalColors.TextColors.primary,
+  },
+  list: {
+    width: '100%',
+  },
+  content: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

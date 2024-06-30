@@ -4,7 +4,6 @@ import { InitialStateProps } from './interfaces';
 const initialState: InitialStateProps = {
   userName: '',
   currentLevel: 0,
-  currentSequenceIndex: 0,
   players: [],
 };
 export const gameSlice = createSlice({
@@ -17,9 +16,7 @@ export const gameSlice = createSlice({
     setCurrentLevel: (state, action) => {
       state.currentLevel = action.payload;
     },
-    setCurrentSequenceIndex: (state, action) => {
-      state.currentSequenceIndex = action.payload;
-    },
+
     addPlayer: (state, action) => {
       if (state.players.includes(action.payload)) {
         state.players.push(action.payload);
@@ -28,7 +25,6 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setCurrentLevel, setCurrentSequenceIndex, setUserName } =
-  gameSlice.actions;
+export const { setCurrentLevel, setUserName, addPlayer } = gameSlice.actions;
 
 export default gameSlice.reducer;

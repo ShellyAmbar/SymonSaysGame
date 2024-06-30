@@ -4,6 +4,10 @@ import {
   TextInput,
   FlatList,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Platform,
+  Keyboard,
 } from 'react-native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Styles from './login-screen.styles';
@@ -18,53 +22,51 @@ const LoginScreen = props => {
   const [rects, setRects] = useState<Rect[]>([]);
   const [text, onChangeText] = React.useState('');
   const playRef = useRef(null);
-  const [startSimulate, setStartSimulate] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(rects.length);
+    if (rects?.length > 0) {
+      console.log(rects.length);
 
-    console.log('set interval ');
+      console.log('set interval ');
 
-    let interval = setInterval(() => {
-      console.log(
-        'index',
-        Math.floor(Math.random() * rects.length),
-        rects.length
-      );
+      let interval = setInterval(() => {
+        console.log(
+          'index',
+          Math.floor(Math.random() * rects.length),
+          rects.length
+        );
 
-      const randomRect = rects[Math.floor(Math.random() * rects.length)];
-      randomRect.ref.current?.simulateButtonPress();
-    }, 500);
+        const randomRect = rects[Math.floor(Math.random() * rects.length)];
+        randomRect.ref.current?.simulateButtonPress();
+      }, 1000);
 
-    return () => {
-      console.log('clear interval');
-      clearInterval(interval);
-    };
-  }, [startSimulate]);
+      return () => {
+        console.log('clear interval');
+        clearInterval(interval);
+      };
+    }
+  }, [rects]);
 
   const createRects = useCallback(() => {
+    const list: Rect[] = [];
     for (let i = 0; i < 30; i++) {
       const ref = React.createRef();
-      setRects(prev => {
-        let arr = [
-          ...prev,
-          {
-            color:
-              GlobalColors.buttonColors[
-                Math.floor(Math.random() * GlobalColors.buttonColors.length)
-              ],
-            ref: ref,
-          },
-        ];
-
-        return arr;
+      list.push({
+        id: i,
+        color:
+          GlobalColors.buttonColors[
+            Math.floor(Math.random() * GlobalColors.buttonColors.length)
+          ],
+        ref: ref,
       });
     }
-    setStartSimulate(true);
-  }, [setRects]);
+    setRects([...list]);
+  }, []);
 
   useEffect(() => {
+    console.log('useeffect createRects');
+
     playRef?.current.play();
     createRects();
   }, [createRects]);
@@ -77,46 +79,58 @@ const LoginScreen = props => {
   const { players } = useSelector(state => state.game);
 
   return (
-    <View style={Styles.container}>
-      <FlatList
-        style={Styles.background}
-        data={rects}
-        renderItem={({ item }) => (
-          <Rectangle color={item.color} ref={item.ref} />
-        )}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={3} // Adjust the number of columns as needed
-        contentContainerStyle={Styles.grid}
-      />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={Styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={Styles.inner}>
+          <FlatList
+            style={Styles.background}
+            data={rects}
+            renderItem={({ item }) => (
+              <Rectangle key={item.id} color={item.color} ref={item.ref} />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            numColumns={3} // Adjust the number of columns as needed
+            contentContainerStyle={Styles.grid}
+          />
+          <View style={Styles.content}>
+            <Text style={Styles.title}>Welcom to Simon Says</Text>
+            <Spacer size={16} />
+            <Text style={Styles.subTitle}>Enter your nickname:</Text>
+            <Spacer size={16} />
+            <TextInput
+              style={Styles.input}
+              onChangeText={onChangeText}
+              value={text}
+              placeholder="your nickname"
+              placeholderTextColor={'#FFFF'}
+            />
+            <Spacer size={16} />
+            {players?.length > 0 && (
+              <>
+                <Text style={Styles.subTitle}>OR</Text>
+                <Text style={Styles.text}>select from the list:</Text>
+                <Spacer size={16} />
+              </>
+            )}
 
-      <Text style={Styles.title}>Welcom to Simon Says</Text>
-      <Spacer size={16} />
-      <Text style={Styles.subTitle}>Enter your nickname:</Text>
-      <Spacer size={16} />
-      <TextInput
-        style={Styles.input}
-        onChangeText={onChangeText}
-        value={text}
-        placeholder="your nickname"
-        placeholderTextColor={'#FFFF'}
-      />
-      <Spacer size={16} />
-      {players?.length > 0 && (
-        <>
-          <Text style={Styles.subTitle}>OR</Text>
-          <Text style={Styles.text}>select from the list:</Text>
-        </>
-      )}
-      <Spacer size={16} />
-      <TouchableOpacity style={Styles.playButton} onPress={() => startGame()}>
-        <LottieView
-          source={require('../../assets/lotties/play.json')}
-          autoPlay
-          loop
-          ref={playRef}
-        />
-      </TouchableOpacity>
-    </View>
+            <TouchableOpacity
+              style={Styles.playButton}
+              onPress={() => startGame()}
+            >
+              <LottieView
+                source={require('../../assets/lotties/play.json')}
+                autoPlay
+                loop
+                ref={playRef}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -3,40 +3,47 @@ import React, { forwardRef, memo, useImperativeHandle, useState } from 'react';
 import { ButtonProps } from './interfaces';
 import Styles from './button.styles';
 const Button = memo(
-  forwardRef(({ onButtonPressed, button, style }: ButtonProps, ref: any) => {
-    const [buttonOpacity, setButtonOpacity] = useState(1);
-    useImperativeHandle(ref, () => ({
-      simulateButtonPress: () => {
-        button.soundWav?.play();
-        setButtonOpacity(0);
-        const timeout = setTimeout(() => {
-          setButtonOpacity(1);
-          clearTimeout(timeout);
-        }, 500);
-      },
-    }));
-
-    return (
-      <TouchableOpacity
-        ref={ref}
-        onPressIn={() => setButtonOpacity(0)}
-        onPressOut={() => setButtonOpacity(1)}
-        onPress={() => {
-          console.log('button Pressed');
-
+  forwardRef(
+    (
+      { onButtonPressed, button, style, disabled, ...props }: ButtonProps,
+      ref: any
+    ) => {
+      const [buttonOpacity, setButtonOpacity] = useState(1);
+      useImperativeHandle(ref, () => ({
+        simulateButtonPress: () => {
           button.soundWav?.play();
-          onButtonPressed(button);
-        }}
-        key={button.id}
-        style={{
-          ...Styles.button,
-          ...style,
-          backgroundColor: button.name,
-          opacity: buttonOpacity,
-        }}
-      />
-    );
-  })
+          setButtonOpacity(0);
+          const timeout = setTimeout(() => {
+            setButtonOpacity(1);
+            clearTimeout(timeout);
+          }, 200);
+        },
+      }));
+
+      return (
+        <TouchableOpacity
+          ref={ref}
+          onPressIn={() => setButtonOpacity(0)}
+          onPressOut={() => setButtonOpacity(1)}
+          onPress={() => {
+            console.log('button Pressed');
+
+            button.soundWav?.play();
+            onButtonPressed(button);
+          }}
+          key={button.id}
+          style={{
+            ...Styles.button,
+            ...style,
+            backgroundColor: button.name,
+            opacity: buttonOpacity,
+          }}
+          disabled={disabled}
+          {...props}
+        />
+      );
+    }
+  )
 );
 
 export default Button;

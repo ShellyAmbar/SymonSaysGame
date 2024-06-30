@@ -29,19 +29,6 @@ const useSounds = () => {
       }
     )
   );
-  const [nextLevelSound, setNextLevelSound] = useState(
-    new Sound(
-      require('../../../assets/sounds/next-level.wav'),
-      Sound.MAIN_BUNDLE,
-
-      error => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          return;
-        }
-      }
-    )
-  );
 
   const [blip1Sound, setBlip1Sound] = useState(
     new Sound(
@@ -105,7 +92,7 @@ const useSounds = () => {
   return {
     successLevelSound,
     faileLevelSound,
-    nextLevelSound,
+
     buttonSounds,
   };
 };

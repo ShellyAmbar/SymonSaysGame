@@ -18,6 +18,6 @@ export const colorsSequenceSlice = createSlice({
   },
 });
 
-export const { resetSequence } = colorsSequenceSlice.actions;
+export const { resetSequence, updateSequence } = colorsSequenceSlice.actions;
 
 export default colorsSequenceSlice.reducer;

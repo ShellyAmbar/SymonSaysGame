@@ -1,9 +1,15 @@
 import React from 'react';
-import { ActivityIndicator, Text } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { GlobalColors } from '../../assets/styles/colors';
+import Styles from './with-loading.styles';
 const WithLoading = Component => {
   return function WihLoadingComponent({ isLoading, ...props }) {
     if (!isLoading) return <Component {...props} />;
-    return <Text>Loading...</Text>;
+    return (
+      <View style={Styles.container}>
+        <ActivityIndicator size={'large'} color={GlobalColors.Brand.primary} />
+      </View>
+    );
   };
 };
 export default WithLoading;

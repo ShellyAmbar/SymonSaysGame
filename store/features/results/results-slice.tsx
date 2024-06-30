@@ -9,9 +9,29 @@ export const resultsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addResult: (state, action) => {
-      console.log('res', action.payload);
+      console.log(
+        'res  addResult',
+        action.payload,
+        action.payload.userName.toLowerCase()
+      );
 
-      state.results.push(action.payload);
+      if (
+        state.results.includes(
+          item =>
+            item.userName.toLowerCase() ===
+            action.payload.userName.toLowerCase()
+        )
+      ) {
+        const filterdListWithoutUserName = state.results.filter(
+          item => item.userName !== action.payload.userName
+        );
+        console.log('filterdListWithoutUserName', filterdListWithoutUserName);
+
+        filterdListWithoutUserName.push(action.payload);
+        state.results = [...filterdListWithoutUserName];
+      } else {
+        state.results.push(action.payload);
+      }
     },
     deleteResult: (state, action) => {
       state.results.filter(

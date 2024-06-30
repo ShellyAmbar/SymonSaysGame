@@ -4,19 +4,30 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // width: '100%',
+    // height: '100%',
+    // paddingHorizontal: 20,
+  },
+  inner: {
+    flex: 1,
+  },
+  content: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    zIndex: 1,
+    padding: 24,
+    flex: 1,
+    justifyContent: 'space-around',
     alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingHorizontal: 20,
   },
   title: {
     fontSize: 50,
-    color: 'blue',
+    color: GlobalColors.TextColors.white,
   },
   subTitle: {
     fontSize: 30,
-    color: 'blue',
+    color: GlobalColors.TextColors.white,
   },
   text: {
     fontSize: 24,
@@ -30,7 +41,7 @@ export default StyleSheet.create({
 
     padding: 10,
     borderBottomColor: '#FFFF',
-    borderBottomWidth: 1,
+    borderBottomWidth: 3,
     color: GlobalColors.TextColors.white,
   },
 
@@ -51,7 +62,5 @@ export default StyleSheet.create({
   playButton: {
     width: '100%',
     height: 200,
-    position: 'absolute',
-    bottom: 30,
   },
 });

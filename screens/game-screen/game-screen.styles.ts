@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { GlobalColors } from '../../assets/styles/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -28,8 +29,8 @@ export default StyleSheet.create({
   },
   nextLevelText: {
     fontSize: 30,
-    color: '#FFF',
-    backgroundColor: '#98FB98',
+    color: GlobalColors.Brand.primary,
+
     borderRadius: 30,
     padding: 15,
   },
