@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sound from 'react-native-sound';
 
 const useSounds = () => {
@@ -19,6 +19,19 @@ const useSounds = () => {
   const [faileLevelSound, setFailLevelSound] = useState(
     new Sound(
       require('../../../assets/sounds/fail-level.wav'),
+      Sound.MAIN_BUNDLE,
+
+      error => {
+        if (error) {
+          console.log('failed to load the sound', error);
+          return;
+        }
+      }
+    )
+  );
+  const [CSound, setCSound] = useState(
+    new Sound(
+      require('../../../assets/sounds/C.mp3'),
       Sound.MAIN_BUNDLE,
 
       error => {
@@ -82,6 +95,7 @@ const useSounds = () => {
       }
     )
   );
+
   const [buttonSounds, setbuttonSounds] = useState([
     blip1Sound,
     blip2Sound,

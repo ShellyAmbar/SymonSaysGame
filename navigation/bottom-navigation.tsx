@@ -16,7 +16,11 @@ const BottomNavigation = () => {
             <IconEntypo
               name="game-controller"
               size={30}
-              color={GlobalColors.Brand.primary}
+              color={
+                focused
+                  ? GlobalColors.Brand.primary
+                  : GlobalColors.TextColors.secondary
+              }
             />
           ),
           tabBarShowLabel: false,
@@ -31,7 +35,11 @@ const BottomNavigation = () => {
             <IconMaterial
               name="sports-score"
               size={30}
-              color={GlobalColors.Brand.primary}
+              color={
+                focused
+                  ? GlobalColors.Brand.primary
+                  : GlobalColors.TextColors.secondary
+              }
             />
           ),
           tabBarShowLabel: false,

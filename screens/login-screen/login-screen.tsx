@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Platform,
   Keyboard,
+  ScrollView,
 } from 'react-native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Styles from './login-screen.styles';
@@ -70,54 +71,57 @@ const LoginScreen = props => {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={Styles.container}
+      enabled
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={Styles.inner}>
-          <FlatList
-            style={Styles.background}
-            data={rects}
-            renderItem={({ item }) => (
-              <Rectangle key={item.id} color={item.color} ref={item.ref} />
-            )}
-            keyExtractor={(item, index) => index.toString()}
-            numColumns={3} // Adjust the number of columns as needed
-            contentContainerStyle={Styles.grid}
-          />
-          <View style={Styles.content}>
-            <Text style={Styles.title}>Welcom to Simon Says</Text>
-            <Spacer size={16} />
-            <Text style={Styles.subTitle}>Enter your nickname:</Text>
-            <Spacer size={16} />
-            <TextInput
-              style={Styles.input}
-              onChangeText={onChangeText}
-              value={text}
-              placeholder="your nickname"
-              placeholderTextColor={'#FFFF'}
-            />
-            <Spacer size={16} />
-            {players?.length > 0 && (
-              <>
-                <Text style={Styles.subTitle}>OR</Text>
-                <Text style={Styles.text}>select from the list:</Text>
-                <Spacer size={16} />
-              </>
-            )}
-
-            <TouchableOpacity
-              style={Styles.playButton}
-              onPress={() => startGame()}
-            >
-              <LottieView
-                source={require('../../assets/lotties/play.json')}
-                autoPlay
-                loop
-                ref={playRef}
+      <FlatList
+        style={Styles.background}
+        data={rects}
+        renderItem={({ item }) => (
+          <Rectangle key={item.id} color={item.color} ref={item.ref} />
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={3} // Adjust the number of columns as needed
+        contentContainerStyle={Styles.grid}
+      />
+      <ScrollView contentContainerStyle={Styles.scrollContainer}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={Styles.inner}>
+            <View style={Styles.content}>
+              <Text style={Styles.title}>Welcom to Simon Says</Text>
+              <Spacer size={16} />
+              <Text style={Styles.subTitle}>Enter your nickname:</Text>
+              <Spacer size={16} />
+              <TextInput
+                style={Styles.input}
+                onChangeText={onChangeText}
+                value={text}
+                placeholder="your nickname"
+                placeholderTextColor={'#FFFF'}
               />
-            </TouchableOpacity>
+              <Spacer size={16} />
+              {players?.length > 0 && (
+                <>
+                  <Text style={Styles.subTitle}>OR</Text>
+                  <Text style={Styles.text}>select from the list:</Text>
+                  <Spacer size={16} />
+                </>
+              )}
+
+              <TouchableOpacity
+                style={Styles.playButton}
+                onPress={() => startGame()}
+              >
+                <LottieView
+                  source={require('../../assets/lotties/play.json')}
+                  autoPlay
+                  loop
+                  ref={playRef}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };

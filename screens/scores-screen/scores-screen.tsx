@@ -11,10 +11,8 @@ const ScoresScreen = memo(() => {
   const [sortedListOfResults, setSortedListOfResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const sortResultsByTopScore = useCallback(() => {
-    console.log('results', results);
-
     const sortedResults = [...results].sort((a, b) => b.level - a.level);
-    console.log('sortedResults ', sortedResults);
+
     setSortedListOfResults(sortedResults);
   }, [results]);
 
