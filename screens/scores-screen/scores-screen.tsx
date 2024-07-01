@@ -25,7 +25,7 @@ const ScoresScreen = memo(() => {
       const timeout = setTimeout(() => {
         setIsLoading(false);
         clearTimeout(timeout);
-      }, 1500);
+      }, 100);
     }
   }, [sortedListOfResults]);
   const itemSeperator = () => <View style={{ height: 10 }} />;
