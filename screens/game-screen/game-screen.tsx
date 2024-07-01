@@ -146,8 +146,12 @@ const GameScreen = () => {
       setCurrentPlayedButtonIndex(prev => {
         if (button.id !== randomSequence[prev].id) {
           faileLevelSound?.play();
-          // playLevelSequence(randomSequence);
-          setIsModalScoresVisible(true);
+
+          if (results?.length > 0) {
+            setIsModalScoresVisible(true);
+          } else {
+            playLevelSequence(randomSequence);
+          }
 
           return 0;
         } else if (prev === currentLevel) {

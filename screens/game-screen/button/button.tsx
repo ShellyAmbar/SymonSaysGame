@@ -18,7 +18,7 @@ const Button = memo(
           const timeout = setTimeout(() => {
             setButtonOpacity(1);
             clearTimeout(timeout);
-          }, 100);
+          }, 300);
         },
       }));
 
