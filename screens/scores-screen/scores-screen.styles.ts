@@ -24,6 +24,7 @@ export default StyleSheet.create({
   },
   list: {
     width: '100%',
+    minHeight: 400,
   },
   content: {
     width: '100%',

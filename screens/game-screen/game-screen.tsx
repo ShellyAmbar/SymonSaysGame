@@ -16,6 +16,7 @@ import { ColorButton } from './button/interfaces';
 import LottieView from 'lottie-react-native';
 import useSounds from '../../utils/hooks/useSounds';
 import { GlobalColors } from '../../assets/styles/colors';
+import UserScoresModal from '../../modals/user-scores-modal/user-scores-modal';
 
 const GameScreen = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const GameScreen = () => {
   const { userName } = useSelector(state => state.game);
   const { colorsSequence } = useSelector(state => state.colorsSequence);
   const { results } = useSelector(state => state.results);
+  const [isModalScoresVisible, setIsModalScoresVisible] = useState(false);
   const getUserLevel = useMemo(() => {
     const playerResult = results?.filter(
       result => result.userName === userName
@@ -144,7 +146,8 @@ const GameScreen = () => {
       setCurrentPlayedButtonIndex(prev => {
         if (button.id !== randomSequence[prev].id) {
           faileLevelSound?.play();
-          playLevelSequence(randomSequence);
+          // playLevelSequence(randomSequence);
+          setIsModalScoresVisible(true);
 
           return 0;
         } else if (prev === currentLevel) {
@@ -229,6 +232,20 @@ const GameScreen = () => {
             {` Level ${currentLevel + 1}`}
           </Text>
         </View>
+      )}
+
+      {isModalScoresVisible && (
+        <UserScoresModal
+          isModalVisible={isModalScoresVisible}
+          onBackdropPress={() => {
+            setIsModalScoresVisible(false);
+            playLevelSequence(randomSequence);
+          }}
+          onClickClose={() => {
+            setIsModalScoresVisible(false);
+            playLevelSequence(randomSequence);
+          }}
+        />
       )}
     </View>
   );
