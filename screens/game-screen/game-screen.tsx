@@ -40,8 +40,6 @@ const GameScreen = () => {
       result => result.userName === userName
     );
 
-    console.log('getUserLevel', playerResult, userName);
-
     return playerResult?.length > 0 ? playerResult[0].level : 0;
   }, []);
   const [currentLevel, setCurrentLevel] = useState(getUserLevel);
@@ -70,29 +68,17 @@ const GameScreen = () => {
 
   const playLevelSequence = useCallback(
     (randomSequence: ColorButton[]) => {
-      console.log(
-        'playLevelSequence randomSequence?.length ',
-        randomSequence?.length
-      );
-
       if (randomSequence?.length > 0) {
-        // console.log(currentLevel, randomSequence?.length);
-        console.log(
-          'playLevelSequence',
-          randomSequence?.map(val => val.name.toString())
-        );
         setIsButtnosEnabled(false);
-        console.log(' setIsButtnosEnabled(false);');
+
         const timeoutEnableButtons = setTimeout(() => {
           setIsButtnosEnabled(true);
-          console.log(' setIsButtnosEnabled(true);');
 
           clearTimeout(timeoutEnableButtons);
         }, currentLevel * 500 + 1000);
 
         const timeout = setTimeout(() => {
           for (let i = 0; i <= currentLevel; i++) {
-            console.log(i, randomSequence[i].name);
             const timeoutPlayButton = setTimeout(() => {
               buttons[randomSequence[i].id].ref?.current?.simulateButtonPress();
               clearTimeout(timeoutPlayButton);
@@ -108,12 +94,6 @@ const GameScreen = () => {
 
   const createRandonButtonsSequence = useCallback(
     (addedLengthOfSequence: number) => {
-      console.log(
-        'createRandonButtonsSequence ----------',
-        'button',
-        buttons.length
-      );
-
       const list: ColorButton[] = [];
       for (let i = 0; i < addedLengthOfSequence; i++) {
         const randomButtonIndex = Math.floor(Math.random() * buttons.length);
@@ -130,9 +110,6 @@ const GameScreen = () => {
         return newList;
       });
 
-      // setLengthOfSequence(prev => prev + addedLengthOfSequence);
-
-      console.log('created sequence ', list.length);
       dispatch(
         updateSequence(
           list.map(item => {
@@ -145,7 +122,6 @@ const GameScreen = () => {
   );
 
   useEffect(() => {
-    console.log('buttons.length canged', buttons.length);
     if (buttons.length === 0) {
       createUniqButtons(buttonSounds?.length);
     } else if (buttons.length > 0) {
@@ -154,21 +130,10 @@ const GameScreen = () => {
   }, [buttons.length]);
 
   useEffect(() => {
-    console.log(
-      'currentLevel changed ',
-      currentPlayedButtonIndex,
-      randomSequence?.length,
-      'currentLevel + 1 < randomSequence?.length',
-      currentLevel + 1 < randomSequence?.length,
-      currentLevel,
-      randomSequence?.length
-    );
-
     if (
       randomSequence?.length > 0 &&
       currentLevel + 1 < randomSequence?.length
     ) {
-      console.log('currentPlayedButtonIndex is > 0');
       let timeout = setTimeout(() => {
         playLevelSequence(randomSequence);
         clearTimeout(timeout);
@@ -178,21 +143,14 @@ const GameScreen = () => {
 
   const onButtonPressed = useCallback(
     (button: ColorButton) => {
-      console.log('click');
-
       setCurrentPlayedButtonIndex(prev => {
         if (button.id !== randomSequence[prev].id) {
-          console.log('button.id !== randomSequence[prev].id');
           faileLevelSound?.play();
           playLevelSequence(randomSequence);
 
           return 0;
         } else if (prev === currentLevel) {
-          console.log('prev === currentLevel', prev, currentLevel);
-
           if (currentLevel + 1 === randomSequence.length - 1) {
-            console.log('currentLevel + 1 === randomSequence.length');
-
             createRandonButtonsSequence(lengthOfSequence);
           }
           setCurrentLevel(prev => prev + 1);

@@ -11,7 +11,11 @@ const Button = memo(
       const [buttonOpacity, setButtonOpacity] = useState(1);
       useImperativeHandle(ref, () => ({
         simulateButtonPress: () => {
+          // button.soundWav?.stop(() => {
+          //   button.soundWav?.play();
+          // });
           button.soundWav?.play();
+
           setButtonOpacity(0);
           const timeout = setTimeout(() => {
             setButtonOpacity(1);
@@ -26,6 +30,9 @@ const Button = memo(
           onPressIn={() => setButtonOpacity(0)}
           onPressOut={() => setButtonOpacity(1)}
           onPress={() => {
+            // button.soundWav?.stop(() => {
+
+            // });
             button.soundWav?.play();
             onButtonPressed(button);
           }}

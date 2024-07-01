@@ -9,8 +9,6 @@ export const resultsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addResult: (state, action) => {
-      console.log('add result to results : ', state.results);
-
       if (
         state.results.some(
           item =>
