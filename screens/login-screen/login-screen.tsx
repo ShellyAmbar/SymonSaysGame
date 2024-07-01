@@ -63,7 +63,6 @@ const LoginScreen = props => {
 
   const startGame = () => {
     dispatch(setUserName(text));
-    SoundPlayer.stop();
     props.navigation.replace('Main');
   };
 
