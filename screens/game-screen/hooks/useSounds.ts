@@ -205,6 +205,14 @@ const useSounds = () => {
     e5Sound,
     f3Sound,
     g5Sound,
+    // blip1Sound,
+    // blip2Sound,
+    // blip3Sound,
+    // blip4Sound,
+    // blip1Sound,
+    // blip2Sound,
+    // blip3Sound,
+    // blip4Sound,
   ]);
 
   return {
