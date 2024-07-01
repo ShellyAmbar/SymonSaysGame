@@ -3,16 +3,8 @@ import { GlobalColors } from '../../assets/styles/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // width: '100%',
-    // height: '100%',
-    // paddingHorizontal: 20,
   },
-  inner: {
-    flex: 1,
-  },
+
   content: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     zIndex: 1,
@@ -24,28 +16,18 @@ export default StyleSheet.create({
   title: {
     fontSize: 50,
     color: GlobalColors.TextColors.white,
-  },
-  subTitle: {
-    fontSize: 30,
-    color: GlobalColors.TextColors.white,
-  },
-  text: {
-    fontSize: 24,
-    color: 'blue',
+    textAlign: 'center',
   },
 
   input: {
     height: 40,
     margin: 12,
     width: '80%',
-
     padding: 10,
     borderBottomColor: '#FFFF',
     borderBottomWidth: 3,
     color: GlobalColors.TextColors.white,
   },
-
-  list: {},
 
   background: {
     zIndex: 0,
