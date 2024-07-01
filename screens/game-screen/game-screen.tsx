@@ -13,12 +13,10 @@ import { addResult } from '../../store/features/results/results-slice';
 
 import Button from './button/button';
 import { ColorButton } from './button/interfaces';
-import Sound from 'react-native-sound';
 import LottieView from 'lottie-react-native';
-import useSounds from './hooks/useSounds';
+import useSounds from '../../utils/hooks/useSounds';
 import { GlobalColors } from '../../assets/styles/colors';
 
-Sound.setCategory('Playback');
 const GameScreen = () => {
   const dispatch = useDispatch();
 

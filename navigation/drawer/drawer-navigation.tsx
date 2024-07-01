@@ -1,6 +1,6 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import BottomNavigation from '../bottom-navigation';
 import CustomDrawerContent from './custon-drawer/custom-drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 function DrawerNavigation() {
   const Drawer = createDrawerNavigator();

@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spacer from '../../components/spacer/spacer';
 import LottieView from 'lottie-react-native';
 import { GlobalColors } from '../../assets/styles/colors';
+
 const LoginScreen = props => {
   const [rects, setRects] = useState<Rect[]>([]);
   const [text, onChangeText] = React.useState('');
@@ -62,6 +63,7 @@ const LoginScreen = props => {
 
   const startGame = () => {
     dispatch(setUserName(text));
+    SoundPlayer.stop();
     props.navigation.replace('Main');
   };
 

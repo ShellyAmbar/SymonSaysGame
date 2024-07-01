@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { GlobalColors } from '../../assets/styles/colors';
 import Styles from './with-loading.styles';
 const WithLoading = Component => {

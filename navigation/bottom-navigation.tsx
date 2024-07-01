@@ -1,10 +1,11 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import GameScreen from '../screens/game-screen/game-screen';
 import ScoresScreen from '../screens/scores-screen/scores-screen';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import { GlobalColors } from '../assets/styles/colors';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const BottomNavigation = () => {
   const Tab = createBottomTabNavigator();
   return (

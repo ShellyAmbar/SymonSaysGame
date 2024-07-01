@@ -10,7 +10,7 @@ type ColorButton = {
 
 interface ButtonProps extends TouchableOpacityProps {
   button: ColorButton;
-  onButtonPressed: (button: ColorButton) => void;
+  onButtonPressed?: (button: ColorButton) => void;
   style?: ViewStyle;
 }
 
