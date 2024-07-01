@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Sound from 'react-native-sound';
 
 const useSounds = () => {
@@ -82,19 +82,6 @@ const useSounds = () => {
       }
     )
   );
-  const [menuSound, setMenuSound] = useState(
-    new Sound(
-      require('../../assets/sounds/menu.mp3'),
-      Sound.MAIN_BUNDLE,
-
-      error => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          return;
-        }
-      }
-    )
-  );
 
   const [buttonSounds, setbuttonSounds] = useState([
     blip1Sound,
@@ -111,7 +98,6 @@ const useSounds = () => {
     successLevelSound,
     faileLevelSound,
     buttonSounds,
-    menuSound,
   };
 };
 
