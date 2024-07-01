@@ -7,7 +7,10 @@ const WithLoading = Component => {
     if (!isLoading) return <Component {...props} />;
     return (
       <View style={Styles.container}>
-        <ActivityIndicator size={'large'} color={GlobalColors.Brand.primary} />
+        <ActivityIndicator
+          size={'large'}
+          color={GlobalColors.TextColors.white}
+        />
       </View>
     );
   };

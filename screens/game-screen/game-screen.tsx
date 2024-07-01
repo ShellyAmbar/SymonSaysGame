@@ -9,7 +9,6 @@ import React, {
 import Styles from './game-screen.styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateSequence } from '../../store/features/colors-sequence/colors-sequence-slice';
-import { setCurrentLevel } from '../../store/features/game/game-slice';
 import { addResult } from '../../store/features/results/results-slice';
 
 import Button from './button/button';
@@ -24,8 +23,6 @@ const GameScreen = () => {
   const dispatch = useDispatch();
 
   const [randomSequence, setRandonSequence] = useState<ColorButton[]>([]);
-  const [currentLevel, setCurrentLevel] = useState(0);
-  const [lengthOfSequence, setLengthOfSequence] = useState(2);
   const [currentPlayedButtonIndex, setCurrentPlayedButtonIndex] = useState(0);
   const [isfinishLevel, setIsFinishLevel] = useState(false);
   const animationRef = useRef<LottieView>(null);
@@ -37,6 +34,20 @@ const GameScreen = () => {
 
   const { userName } = useSelector(state => state.game);
   const { colorsSequence } = useSelector(state => state.colorsSequence);
+  const { results } = useSelector(state => state.results);
+  const getUserLevel = useMemo(() => {
+    const playerResult = results?.filter(
+      result => result.userName === userName
+    );
+
+    console.log('getUserLevel', playerResult, userName);
+
+    return playerResult?.length > 0 ? playerResult[0].level : 0;
+  }, []);
+  const [currentLevel, setCurrentLevel] = useState(getUserLevel);
+  const [lengthOfSequence, setLengthOfSequence] = useState(
+    getUserLevel > 0 ? 2 * getUserLevel : 2
+  );
 
   const createUniqButtons = useCallback(
     (numOfButtons: number) => {
@@ -134,12 +145,6 @@ const GameScreen = () => {
   );
 
   useEffect(() => {
-    if (randomSequence?.length > 0) {
-      setCurrentLevel(prev => prev + 1);
-    }
-  }, [randomSequence]);
-
-  useEffect(() => {
     console.log('buttons.length canged', buttons.length);
     if (buttons.length === 0) {
       createUniqButtons(buttonSounds?.length);
@@ -152,17 +157,24 @@ const GameScreen = () => {
     console.log(
       'currentLevel changed ',
       currentPlayedButtonIndex,
+      randomSequence?.length,
+      'currentLevel + 1 < randomSequence?.length',
+      currentLevel + 1 < randomSequence?.length,
+      currentLevel,
       randomSequence?.length
     );
 
-    if (randomSequence?.length > 0) {
-      console.log('currentPlayedButtonIndex is 0');
+    if (
+      randomSequence?.length > 0 &&
+      currentLevel + 1 < randomSequence?.length
+    ) {
+      console.log('currentPlayedButtonIndex is > 0');
       let timeout = setTimeout(() => {
         playLevelSequence(randomSequence);
         clearTimeout(timeout);
       }, 300);
     }
-  }, [currentLevel]);
+  }, [currentLevel, randomSequence?.length?.toString()]);
 
   const onButtonPressed = useCallback(
     (button: ColorButton) => {
@@ -178,18 +190,17 @@ const GameScreen = () => {
         } else if (prev === currentLevel) {
           console.log('prev === currentLevel', prev, currentLevel);
 
-          if (currentLevel + 1 === randomSequence.length) {
+          if (currentLevel + 1 === randomSequence.length - 1) {
             console.log('currentLevel + 1 === randomSequence.length');
 
             createRandonButtonsSequence(lengthOfSequence);
-          } else {
-            setCurrentLevel(prev => prev + 1);
           }
+          setCurrentLevel(prev => prev + 1);
           dispatch(
             addResult({
               dateCreated: Date.now().toString(),
               userName: userName,
-              level: currentLevel,
+              level: currentLevel + 1,
             })
           );
           animationRef.current?.play();
@@ -205,7 +216,6 @@ const GameScreen = () => {
           prev < currentLevel &&
           button.id === randomSequence[prev].id
         ) {
-          console.log('else if');
           return prev + 1;
         }
         return prev;

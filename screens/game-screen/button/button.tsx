@@ -26,8 +26,6 @@ const Button = memo(
           onPressIn={() => setButtonOpacity(0)}
           onPressOut={() => setButtonOpacity(1)}
           onPress={() => {
-            console.log('button Pressed');
-
             button.soundWav?.play();
             onButtonPressed(button);
           }}

@@ -7,18 +7,16 @@ import ScoreItem from './score-item/score-item';
 import Spacer from '../../components/spacer/spacer';
 const ListWithLoading = WithLoading(FlatList);
 const ScoresScreen = memo(() => {
-  const { userName } = useSelector(state => state.game);
   const { results } = useSelector(state => state.results);
   const [sortedListOfResults, setSortedListOfResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const sortResultsByTopScore = useCallback(() => {
-    const playerResults = results.filter(
-      result => result.userName === userName
-    );
-    const sortedResults = playerResults.sort((a, b) => a.level - b.level);
+    console.log('results', results);
+
+    const sortedResults = [...results].sort((a, b) => b.level - a.level);
     console.log('sortedResults ', sortedResults);
     setSortedListOfResults(sortedResults);
-  }, [results, userName]);
+  }, [results]);
 
   useEffect(() => {
     sortResultsByTopScore();

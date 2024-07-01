@@ -9,14 +9,10 @@ export const resultsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addResult: (state, action) => {
-      console.log(
-        'res  addResult',
-        action.payload,
-        action.payload.userName.toLowerCase()
-      );
+      console.log('add result to results : ', state.results);
 
       if (
-        state.results.includes(
+        state.results.some(
           item =>
             item.userName.toLowerCase() ===
             action.payload.userName.toLowerCase()
@@ -25,7 +21,6 @@ export const resultsSlice = createSlice({
         const filterdListWithoutUserName = state.results.filter(
           item => item.userName !== action.payload.userName
         );
-        console.log('filterdListWithoutUserName', filterdListWithoutUserName);
 
         filterdListWithoutUserName.push(action.payload);
         state.results = [...filterdListWithoutUserName];

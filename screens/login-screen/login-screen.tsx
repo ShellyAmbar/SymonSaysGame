@@ -26,23 +26,12 @@ const LoginScreen = props => {
 
   useEffect(() => {
     if (rects?.length > 0) {
-      console.log(rects.length);
-
-      console.log('set interval ');
-
       let interval = setInterval(() => {
-        console.log(
-          'index',
-          Math.floor(Math.random() * rects.length),
-          rects.length
-        );
-
         const randomRect = rects[Math.floor(Math.random() * rects.length)];
         randomRect.ref.current?.simulateButtonPress();
       }, 1000);
 
       return () => {
-        console.log('clear interval');
         clearInterval(interval);
       };
     }
@@ -65,8 +54,7 @@ const LoginScreen = props => {
   }, []);
 
   useEffect(() => {
-    console.log('useeffect createRects');
-
+    dispatch(setUserName(''));
     playRef?.current.play();
     createRects();
   }, [createRects]);
