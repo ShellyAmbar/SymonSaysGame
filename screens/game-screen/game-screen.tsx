@@ -43,12 +43,12 @@ const GameScreen = () => {
     return playerResult?.length > 0 ? playerResult[0].level : 0;
   }, []);
   const [currentLevel, setCurrentLevel] = useState(getUserLevel);
-  const [lengthOfSequence, setLengthOfSequence] = useState(
-    getUserLevel > 0 ? 2 * getUserLevel : 2
-  );
+  const [lengthOfSequence, setLengthOfSequence] = useState(50);
 
   const createUniqButtons = useCallback(
     (numOfButtons: number) => {
+      console.log('createUniqButtons ----');
+
       let uniqButtonsList: ColorButton[] = [];
 
       for (let i = 0; i < numOfButtons; i++) {
@@ -57,7 +57,8 @@ const GameScreen = () => {
           id: i,
           name: GlobalColors.buttonColors[i],
           ref: ref,
-          soundWav: buttonSounds[i],
+          soundWav:
+            buttonSounds[Math.floor(Math.random() * buttonSounds.length)],
         });
       }
 
@@ -94,16 +95,14 @@ const GameScreen = () => {
 
   const createRandonButtonsSequence = useCallback(
     (addedLengthOfSequence: number) => {
+      console.log('createRandonButtonsSequence');
+
       const list: ColorButton[] = [];
       for (let i = 0; i < addedLengthOfSequence; i++) {
         const randomButtonIndex = Math.floor(Math.random() * buttons.length);
         const randomButton = buttons[randomButtonIndex];
         list.push(randomButton);
       }
-
-      // if (randomSequence?.length === 0) {
-      //   playLevelSequence(list);
-      // }
 
       setRandonSequence(prev => {
         const newList = [...prev, ...list];
@@ -123,7 +122,7 @@ const GameScreen = () => {
 
   useEffect(() => {
     if (buttons.length === 0) {
-      createUniqButtons(buttonSounds?.length);
+      createUniqButtons(10);
     } else if (buttons.length > 0) {
       createRandonButtonsSequence(lengthOfSequence);
     }

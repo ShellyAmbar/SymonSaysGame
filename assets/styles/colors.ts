@@ -9,6 +9,10 @@ export const GlobalColors = {
     '#800080',
     '#FFC0CB',
     '#808080',
+    '#8A2BE2',
+    '#00008B',
+    '#008000',
+    '#FF4500',
   ],
   Brand: {
     primary: '#1E90FF',

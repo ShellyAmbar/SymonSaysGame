@@ -1,8 +1,14 @@
 import { TouchableOpacity } from 'react-native';
-import React, { forwardRef, memo, useImperativeHandle, useState } from 'react';
+import React, {
+  forwardRef,
+  memo,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import { ButtonProps } from './interfaces';
 import Styles from './button.styles';
-import Sound from 'react-native-sound';
+
 const Button = memo(
   forwardRef(
     (
@@ -18,7 +24,7 @@ const Button = memo(
           const timeout = setTimeout(() => {
             setButtonOpacity(1);
             clearTimeout(timeout);
-          }, 300);
+          }, 200);
         },
       }));
 
