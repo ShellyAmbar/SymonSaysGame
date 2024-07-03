@@ -15,6 +15,7 @@ const DropDown = ({
   itemTextStyle,
   containerStyle,
   selectedItemName,
+  onDeleteItem,
 }: DropDownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -41,6 +42,7 @@ const DropDown = ({
     },
     [onSelectItem, list]
   );
+
   return (
     <View style={[Styles.container, { ...containerStyle }]}>
       <TouchableOpacity
@@ -65,6 +67,7 @@ const DropDown = ({
       {isOpen && (
         <>
           <FlatList
+            ItemSeparatorComponent={() => <Spacer isVertical size={10} />}
             style={Styles.list}
             data={list}
             renderItem={({
@@ -75,6 +78,7 @@ const DropDown = ({
               index: number;
             }) => (
               <DropItem
+                onDeleteItemPressed={id => onDeleteItem(id)}
                 item={item}
                 key={item.id}
                 onItemPressed={id => onItemPressed(id)}

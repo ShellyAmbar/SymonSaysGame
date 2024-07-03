@@ -11,7 +11,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Styles from './login-screen.styles';
 import Rectangle from './rectangle/rectangle';
 import { Rect } from './interfaces';
-import { setUserName, addPlayer } from '../../store/features/game/game-slice';
+import {
+  setUserName,
+  addPlayer,
+  removePlayer,
+} from '../../store/features/game/game-slice';
 import { useDispatch, useSelector } from 'react-redux';
 import Spacer from '../../components/spacer/spacer';
 import LottieView from 'lottie-react-native';
@@ -43,12 +47,13 @@ const LoginScreen = props => {
 
   useEffect(() => {
     SoundPlayer.playAsset(menuSound);
-    SoundPlayer.addEventListener('FinishedPlaying', () => {
+    const listener = SoundPlayer.addEventListener('FinishedPlaying', () => {
       SoundPlayer.resume();
     });
     playRef?.current.play();
     return () => {
       SoundPlayer.stop();
+      listener.remove();
     };
   }, [menuSound]);
 
@@ -134,6 +139,9 @@ const LoginScreen = props => {
               <View style={Styles.horizontal}>
                 <Text style={Styles.text}>select from the list:</Text>
                 <DropDown
+                  onDeleteItem={id => {
+                    dispatch(removePlayer(id));
+                  }}
                   list={players}
                   onSelectItem={itemIndex => {
                     onChangeText(players[itemIndex].name);

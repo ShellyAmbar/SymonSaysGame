@@ -7,6 +7,7 @@ type ItemData = {
 type DropItemProps = {
   item: ItemData;
   onItemPressed: (itemId: string) => void;
+  onDeleteItemPressed: (itemId: string) => void;
   textStyle?: TextStyle;
 };
 

@@ -1,6 +1,6 @@
 {
-  "name": "SimonSays",
-  "version": "0.0.1",
+  "name": "MemoMe",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "android": "react-native run-android",

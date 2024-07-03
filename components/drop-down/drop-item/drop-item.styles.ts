@@ -5,9 +5,26 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    borderRadius: 10,
   },
+  titleContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   title: {
     color: GlobalColors.TextColors.primary,
     fontSize: 16,
+    width: '100%',
+    textAlign: 'center',
+  },
+  closeButton: {
+    width: 32,
+    height: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

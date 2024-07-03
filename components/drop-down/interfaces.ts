@@ -9,6 +9,7 @@ type DropDownProps = {
   selectedTextStyle?: TextStyle;
   itemTextStyle?: TextStyle;
   selectedItemName?: string;
+  onDeleteItem: (selectedId: string) => void;
 };
 
 export default DropDownProps;

@@ -15,7 +15,7 @@ export default StyleSheet.create({
   list: {
     width: '100%',
     flexDirection: 'column',
-    paddingStart: 44,
+
     maxHeight: 200,
     position: 'absolute',
     top: 35,

@@ -24,9 +24,19 @@ export const gameSlice = createSlice({
         state.players.push({ id: lowerCaseName, name: lowerCaseName });
       }
     },
+
+    removePlayer: (state, action) => {
+      const lowerCaseId = action.payload.toLowerCase();
+      const filteredList = state.players.filter(
+        item => item.id !== lowerCaseId
+      );
+
+      state.players = [...filteredList];
+    },
   },
 });
 
-export const { setCurrentLevel, setUserName, addPlayer } = gameSlice.actions;
+export const { setCurrentLevel, setUserName, addPlayer, removePlayer } =
+  gameSlice.actions;
 
 export default gameSlice.reducer;
