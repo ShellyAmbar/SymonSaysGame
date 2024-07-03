@@ -1,4 +1,4 @@
-import { View, FlatList, TouchableOpacity, Text } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import React, {
   useCallback,
   useEffect,
@@ -17,6 +17,7 @@ import LottieView from 'lottie-react-native';
 import useSounds from '../../utils/hooks/useSounds';
 import { GlobalColors } from '../../assets/styles/colors';
 import UserScoresModal from '../../modals/user-scores-modal/user-scores-modal';
+import SoundPlayer from 'react-native-sound-player';
 
 const GameScreen = () => {
   const dispatch = useDispatch();
@@ -144,7 +145,7 @@ const GameScreen = () => {
     (button: ColorButton) => {
       setCurrentPlayedButtonIndex(prev => {
         if (button.id !== randomSequence[prev].id) {
-          faileLevelSound?.play();
+          SoundPlayer.playAsset(faileLevelSound);
 
           if (results?.length > 0) {
             setIsModalScoresVisible(true);
@@ -166,7 +167,7 @@ const GameScreen = () => {
             })
           );
           animationRef.current?.play();
-          successLevelSound?.play();
+          SoundPlayer.playAsset(successLevelSound);
           setIsFinishLevel(true);
           const timeout = setTimeout(() => {
             setIsFinishLevel(false);

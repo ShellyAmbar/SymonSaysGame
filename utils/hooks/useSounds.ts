@@ -1,86 +1,27 @@
-import { useState } from 'react';
-import Sound from 'react-native-sound';
+import { useEffect, useState } from 'react';
 
 const useSounds = () => {
-  Sound.setCategory('Playback');
-  const [successLevelSound, setSuccessLevelSound] = useState<Sound>(
-    new Sound(
-      require('../../assets/sounds/success-level.wav'),
-      Sound.MAIN_BUNDLE,
-
-      error => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          return;
-        }
-      }
-    )
+  const [successLevelSound, setSuccessLevelSound] = useState(
+    require('../../assets/sounds/success-level.wav')
   );
   const [faileLevelSound, setFailLevelSound] = useState(
-    new Sound(
-      require('../../assets/sounds/fail-level.wav'),
-      Sound.MAIN_BUNDLE,
-
-      error => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          return;
-        }
-      }
-    )
+    require('../../assets/sounds/fail-level.wav')
+  );
+  const [menuSound, setMenuSound] = useState(
+    require('../../assets/sounds/menu.mp3')
   );
 
   const [blip1Sound, setBlip1Sound] = useState(
-    new Sound(
-      require('../../assets/sounds/blip1.wav'),
-      Sound.MAIN_BUNDLE,
-
-      error => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          return;
-        }
-      }
-    )
+    require('../../assets/sounds/blip1.wav')
   );
   const [blip2Sound, setBlip2Sound] = useState(
-    new Sound(
-      require('../../assets/sounds/blip2.wav'),
-      Sound.MAIN_BUNDLE,
-
-      error => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          return;
-        }
-      }
-    )
+    require('../../assets/sounds/blip2.wav')
   );
   const [blip3Sound, setBlip3Sound] = useState(
-    new Sound(
-      require('../../assets/sounds/blip3.wav'),
-      Sound.MAIN_BUNDLE,
-
-      error => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          return;
-        }
-      }
-    )
+    require('../../assets/sounds/blip3.wav')
   );
   const [blip4Sound, setBlip4Sound] = useState(
-    new Sound(
-      require('../../assets/sounds/blip4.wav'),
-      Sound.MAIN_BUNDLE,
-
-      error => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          return;
-        }
-      }
-    )
+    require('../../assets/sounds/blip4.wav')
   );
 
   const [buttonSounds, setbuttonSounds] = useState([
@@ -98,6 +39,7 @@ const useSounds = () => {
     successLevelSound,
     faileLevelSound,
     buttonSounds,
+    menuSound,
   };
 };
 

@@ -5,10 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
   Platform,
-  Keyboard,
-  ScrollView,
 } from 'react-native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Styles from './login-screen.styles';
@@ -20,6 +17,8 @@ import Spacer from '../../components/spacer/spacer';
 import LottieView from 'lottie-react-native';
 import { GlobalColors } from '../../assets/styles/colors';
 import DropDown from '../../components/drop-down/drop-down';
+import useSounds from '../../utils/hooks/useSounds';
+import SoundPlayer from 'react-native-sound-player';
 
 const LoginScreen = props => {
   const [rects, setRects] = useState<Rect[]>([]);
@@ -28,6 +27,7 @@ const LoginScreen = props => {
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState(null);
   const { players, userName } = useSelector(state => state.game);
+  const { menuSound } = useSounds();
   useEffect(() => {
     if (rects?.length > 0) {
       let interval = setInterval(() => {
@@ -40,6 +40,14 @@ const LoginScreen = props => {
       };
     }
   }, [rects]);
+
+  useEffect(() => {
+    SoundPlayer.playAsset(menuSound);
+
+    return () => {
+      SoundPlayer.stop();
+    };
+  }, [menuSound]);
 
   const createRects = useCallback(() => {
     const list: Rect[] = [];
@@ -96,8 +104,7 @@ const LoginScreen = props => {
         numColumns={3}
         contentContainerStyle={Styles.grid}
       />
-      {/* <ScrollView contentContainerStyle={Styles.scrollContainer}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
+
       <View style={Styles.content}>
         <Text style={Styles.title}>Simon Says</Text>
 
@@ -145,8 +152,6 @@ const LoginScreen = props => {
           />
         </TouchableOpacity>
       </View>
-      {/* </TouchableWithoutFeedback>
-      </ScrollView> */}
     </KeyboardAvoidingView>
   );
 };

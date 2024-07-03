@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import { ButtonProps } from './interfaces';
 import Styles from './button.styles';
+import SoundPlayer from 'react-native-sound-player';
 
 const Button = memo(
   forwardRef(
@@ -18,7 +19,7 @@ const Button = memo(
       const [buttonOpacity, setButtonOpacity] = useState(1);
       useImperativeHandle(ref, () => ({
         simulateButtonPress: () => {
-          button.soundWav?.play();
+          SoundPlayer.playAsset(button.soundWav);
 
           setButtonOpacity(0);
           const timeout = setTimeout(() => {
@@ -31,11 +32,16 @@ const Button = memo(
       return (
         <TouchableOpacity
           ref={ref}
-          onPressIn={() => setButtonOpacity(0)}
-          onPressOut={() => setButtonOpacity(1)}
+          //  onPressIn={() => setButtonOpacity(0)}
+          //  onPressOut={() => setButtonOpacity(1)}
           onPress={() => {
-            button.soundWav?.play();
-            onButtonPressed && onButtonPressed(button);
+            setButtonOpacity(0);
+            SoundPlayer.playAsset(button.soundWav);
+            const timeout = setTimeout(() => {
+              setButtonOpacity(1);
+              onButtonPressed && onButtonPressed(button);
+              clearTimeout(timeout);
+            }, 100);
           }}
           key={button.id}
           style={{
