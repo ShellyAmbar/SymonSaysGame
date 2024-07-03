@@ -9,7 +9,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const BottomNavigation = () => {
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: { backgroundColor: GlobalColors.Brand.primary },
+      }}
+    >
       <Tab.Screen
         options={{
           headerShown: false,
@@ -19,7 +23,7 @@ const BottomNavigation = () => {
               size={30}
               color={
                 focused
-                  ? GlobalColors.Brand.primary
+                  ? GlobalColors.TextColors.white
                   : GlobalColors.TextColors.secondary
               }
             />
@@ -38,7 +42,7 @@ const BottomNavigation = () => {
               size={30}
               color={
                 focused
-                  ? GlobalColors.Brand.primary
+                  ? GlobalColors.TextColors.white
                   : GlobalColors.TextColors.secondary
               }
             />

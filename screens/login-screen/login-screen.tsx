@@ -113,7 +113,7 @@ const LoginScreen = props => {
 
       <View style={Styles.content}>
         <Spacer size={24} />
-        <Text style={Styles.title}>{'Say What?'}</Text>
+        <Text style={Styles.title}>{'MemoMe'}</Text>
         <Spacer size={54} />
 
         <View style={Styles.contentContainer}>

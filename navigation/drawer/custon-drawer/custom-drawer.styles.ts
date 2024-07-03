@@ -8,11 +8,11 @@ export default StyleSheet.create({
     flexDirection: 'column',
   },
   title: {
-    color: GlobalColors.Brand.primary,
+    color: GlobalColors.TextColors.white,
     fontSize: 30,
   },
   text: {
-    color: GlobalColors.Brand.secondary,
-    fontSize: 24,
+    color: GlobalColors.TextColors.white,
+    fontSize: 16,
   },
 });
