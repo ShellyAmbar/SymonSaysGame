@@ -1,6 +1,10 @@
+type Player = {
+  id: string;
+  name: string;
+};
 type InitialStateProps = {
   userName: string;
   currentLevel: number;
-  players: string[];
+  players: Player[];
 };
-export { InitialStateProps };
+export { InitialStateProps, Player };

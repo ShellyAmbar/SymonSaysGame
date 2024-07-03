@@ -14,18 +14,20 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Styles from './login-screen.styles';
 import Rectangle from './rectangle/rectangle';
 import { Rect } from './interfaces';
-import { setUserName } from '../../store/features/game/game-slice';
+import { setUserName, addPlayer } from '../../store/features/game/game-slice';
 import { useDispatch, useSelector } from 'react-redux';
 import Spacer from '../../components/spacer/spacer';
 import LottieView from 'lottie-react-native';
 import { GlobalColors } from '../../assets/styles/colors';
+import DropDown from '../../components/drop-down/drop-down';
 
 const LoginScreen = props => {
   const [rects, setRects] = useState<Rect[]>([]);
-  const [text, onChangeText] = React.useState('');
+  const [text, onChangeText] = useState('');
   const playRef = useRef(null);
   const dispatch = useDispatch();
-
+  const [errorMessage, setErrorMessage] = useState(null);
+  const { players, userName } = useSelector(state => state.game);
   useEffect(() => {
     if (rects?.length > 0) {
       let interval = setInterval(() => {
@@ -56,17 +58,27 @@ const LoginScreen = props => {
   }, []);
 
   useEffect(() => {
-    dispatch(setUserName(''));
     playRef?.current.play();
     createRects();
   }, [createRects]);
 
-  const startGame = () => {
-    dispatch(setUserName(text));
-    props.navigation.replace('Main');
-  };
-
-  const { players } = useSelector(state => state.game);
+  const startGame = useCallback(() => {
+    console.log('saving ', text);
+    if (text?.length > 0) {
+      dispatch(setUserName(text));
+      dispatch(addPlayer(text));
+      props.navigation.replace('Main');
+    } else {
+      if (userName?.length > 0) {
+        props.navigation.replace('Main');
+      } else {
+        setErrorMessage('You need to enter a nickname first');
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 1000);
+      }
+    }
+  }, [dispatch, props.navigation, text, setErrorMessage, userName]);
 
   return (
     <KeyboardAvoidingView
@@ -84,42 +96,57 @@ const LoginScreen = props => {
         numColumns={3}
         contentContainerStyle={Styles.grid}
       />
-      <ScrollView contentContainerStyle={Styles.scrollContainer}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={Styles.content}>
-            <Text style={Styles.title}>Simon Says</Text>
-            <Spacer size={16} />
+      {/* <ScrollView contentContainerStyle={Styles.scrollContainer}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
+      <View style={Styles.content}>
+        <Text style={Styles.title}>Simon Says</Text>
 
-            <TextInput
-              style={Styles.input}
-              onChangeText={onChangeText}
-              value={text}
-              placeholder="Enter your your nickname"
-              placeholderTextColor={'#FFFF'}
-            />
-            <Spacer size={16} />
-            {players?.length > 0 && (
-              <>
-                <Text style={Styles.subTitle}>OR</Text>
-                <Text style={Styles.text}>select from the list:</Text>
-                <Spacer size={16} />
-              </>
-            )}
+        <Text style={Styles.subTitle}>{'Enter your your nickname :'}</Text>
+        <TextInput
+          style={Styles.input}
+          onChangeText={onChangeText}
+          value={text}
+          placeholder={
+            players?.length > 0 && userName?.length > 0
+              ? 'selected user name: ' + userName
+              : 'Enter your your nickname'
+          }
+          placeholderTextColor={'#FFFF'}
+        />
 
-            <TouchableOpacity
-              style={Styles.playButton}
-              onPress={() => startGame()}
-            >
-              <LottieView
-                source={require('../../assets/lotties/play.json')}
-                autoPlay
-                loop
-                ref={playRef}
+        {players?.length > 0 && (
+          <>
+            <Text style={Styles.subTitle}>OR</Text>
+            <View style={Styles.horizontal}>
+              <Text style={Styles.text}>select from the list:</Text>
+              <DropDown
+                list={players}
+                onSelectItem={itemIndex => {
+                  console.log('itemIndex ', itemIndex);
+                  onChangeText(players[itemIndex].name);
+                }}
+                iconColor="#FFFF"
+                itemTextStyle={Styles.dropItemText}
+                containerStyle={Styles.dropDown}
+                selectedItemName={userName}
               />
-            </TouchableOpacity>
-          </View>
-        </TouchableWithoutFeedback>
-      </ScrollView>
+            </View>
+            <Spacer size={16} />
+          </>
+        )}
+        <Text style={Styles.errorText}>{errorMessage}</Text>
+
+        <TouchableOpacity style={Styles.playButton} onPress={() => startGame()}>
+          <LottieView
+            source={require('../../assets/lotties/play.json')}
+            autoPlay
+            loop
+            ref={playRef}
+          />
+        </TouchableOpacity>
+      </View>
+      {/* </TouchableWithoutFeedback>
+      </ScrollView> */}
     </KeyboardAvoidingView>
   );
 };

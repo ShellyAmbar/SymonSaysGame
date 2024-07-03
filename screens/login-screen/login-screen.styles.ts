@@ -8,15 +8,33 @@ export default StyleSheet.create({
   content: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     zIndex: 1,
-    padding: 24,
+    paddingTop: 24,
+    paddingHorizontal: 20,
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
   },
+  horizontal: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   title: {
-    fontSize: 50,
+    fontSize: 40,
     color: GlobalColors.TextColors.white,
     textAlign: 'center',
+  },
+  subTitle: {
+    fontSize: 18,
+    color: GlobalColors.TextColors.white,
+    textAlign: 'center',
+  },
+  text: {
+    fontSize: 16,
+    color: GlobalColors.TextColors.white,
+    textAlign: 'center',
+    flex: 1,
   },
 
   input: {
@@ -43,9 +61,18 @@ export default StyleSheet.create({
   },
   playButton: {
     width: '100%',
-    height: 200,
+    height: 100,
   },
   scrollContainer: {
     flexGrow: 1,
+  },
+  dropItemText: { color: '#FFFF', fontSize: 18 },
+  dropDown: {
+    flex: 1,
+  },
+  errorText: {
+    fontSize: 18,
+    color: GlobalColors.SystemColors.Error,
+    textAlign: 'center',
   },
 });
