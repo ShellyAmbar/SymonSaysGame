@@ -48,8 +48,6 @@ const GameScreen = () => {
 
   const createUniqButtons = useCallback(
     (numOfButtons: number) => {
-      console.log('createUniqButtons ----');
-
       let uniqButtonsList: ColorButton[] = [];
 
       for (let i = 0; i < numOfButtons; i++) {
@@ -96,8 +94,6 @@ const GameScreen = () => {
 
   const createRandonButtonsSequence = useCallback(
     (addedLengthOfSequence: number) => {
-      console.log('createRandonButtonsSequence');
-
       const list: ColorButton[] = [];
       for (let i = 0; i < addedLengthOfSequence; i++) {
         const randomButtonIndex = Math.floor(Math.random() * buttons.length);

@@ -73,7 +73,6 @@ const LoginScreen = props => {
   }, [createRects]);
 
   const startGame = useCallback(() => {
-    console.log('saving ', text);
     if (text?.length > 0) {
       dispatch(setUserName(text));
       dispatch(addPlayer(text));
@@ -109,7 +108,7 @@ const LoginScreen = props => {
 
       <View style={Styles.content}>
         <Spacer size={24} />
-        <Text style={Styles.title}>Simon Says</Text>
+        <Text style={Styles.title}>{'Say What?'}</Text>
         <Spacer size={54} />
 
         <View style={Styles.contentContainer}>
@@ -137,7 +136,6 @@ const LoginScreen = props => {
                 <DropDown
                   list={players}
                   onSelectItem={itemIndex => {
-                    console.log('itemIndex ', itemIndex);
                     onChangeText(players[itemIndex].name);
                   }}
                   iconColor="#FFFF"

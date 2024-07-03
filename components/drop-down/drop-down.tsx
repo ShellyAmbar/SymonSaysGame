@@ -19,8 +19,6 @@ const DropDown = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const getSelectedItemIndexByName = useMemo(() => {
-    console.log('getSelectedItemIndexByName list', list);
-
     const index = list.findIndex(
       item => item.name.toLowerCase() === selectedItemName?.toLowerCase()
     );
@@ -33,15 +31,10 @@ const DropDown = ({
       : 0
   );
 
-  useEffect(() => {
-    console.log('index', selectedIndex, 'selectedItemName', selectedItemName);
-  }, [selectedIndex, selectedItemName]);
-
   const onItemPressed = useCallback(
     (itemId: string) => {
       setIsOpen(false);
       const index = list.findIndex(item => item.id === itemId);
-      console.log('index in onItemPressed ', index, list);
 
       setSelectedIndex(index);
       onSelectItem(index);

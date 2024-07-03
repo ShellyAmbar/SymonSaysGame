@@ -19,10 +19,6 @@ export const gameSlice = createSlice({
 
     addPlayer: (state, action) => {
       const lowerCaseName = action.payload.toLowerCase();
-      console.log(
-        lowerCaseName,
-        state.players.findIndex(item => item.name === lowerCaseName) !== -1
-      );
 
       if (state.players.findIndex(item => item.name === lowerCaseName) === -1) {
         state.players.push({ id: lowerCaseName, name: lowerCaseName });
