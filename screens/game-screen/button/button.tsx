@@ -32,8 +32,6 @@ const Button = memo(
       return (
         <TouchableOpacity
           ref={ref}
-          //  onPressIn={() => setButtonOpacity(0)}
-          //  onPressOut={() => setButtonOpacity(1)}
           onPress={() => {
             setButtonOpacity(0);
             SoundPlayer.playAsset(button.soundWav);

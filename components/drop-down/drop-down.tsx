@@ -50,28 +50,24 @@ const DropDown = ({
   );
   return (
     <View style={[Styles.container, { ...containerStyle }]}>
-      <View style={Styles.headerContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            setIsOpen(!isOpen);
-          }}
-        >
-          {isOpen ? (
-            <Icon name="up" size={20} color={iconColor ? iconColor : 'black'} />
-          ) : (
-            <Icon
-              name="down"
-              size={20}
-              color={iconColor ? iconColor : 'black'}
-            />
-          )}
-        </TouchableOpacity>
+      <TouchableOpacity
+        style={Styles.headerContainer}
+        onPress={() => {
+          setIsOpen(!isOpen);
+        }}
+      >
+        {isOpen ? (
+          <Icon name="up" size={20} color={iconColor ? iconColor : 'black'} />
+        ) : (
+          <Icon name="down" size={20} color={iconColor ? iconColor : 'black'} />
+        )}
+
         <Spacer size={24} isVertical={false} />
 
         <Text style={[Styles.selectedText, { ...selectedTextStyle }]}>
           {list[selectedIndex]?.name}
         </Text>
-      </View>
+      </TouchableOpacity>
 
       {isOpen && (
         <>

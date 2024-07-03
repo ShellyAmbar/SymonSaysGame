@@ -32,6 +32,7 @@ const ScoresScreen = memo(() => {
 
   return (
     <View style={Styles.container}>
+      <Spacer size={24} />
       <Text style={Styles.title}>Top scores</Text>
       <Spacer size={26} />
       <ListWithLoading
