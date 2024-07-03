@@ -3,6 +3,13 @@ import { GlobalColors } from '../../assets/styles/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
+
+    width: '100%',
+  },
+  contentContainer: {
+    alignItems: 'center',
+    flex: 1,
+    width: '100%',
   },
 
   content: {
@@ -38,10 +45,7 @@ export default StyleSheet.create({
   },
 
   input: {
-    height: 40,
-    margin: 12,
     width: '80%',
-    padding: 10,
     borderBottomColor: '#FFFF',
     borderBottomWidth: 3,
     color: GlobalColors.TextColors.white,
@@ -61,7 +65,7 @@ export default StyleSheet.create({
   },
   playButton: {
     width: '100%',
-    height: 100,
+    height: 150,
   },
   scrollContainer: {
     flexGrow: 1,

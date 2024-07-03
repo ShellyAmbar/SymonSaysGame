@@ -43,7 +43,10 @@ const LoginScreen = props => {
 
   useEffect(() => {
     SoundPlayer.playAsset(menuSound);
-
+    SoundPlayer.addEventListener('FinishedPlaying', () => {
+      SoundPlayer.resume();
+    });
+    playRef?.current.play();
     return () => {
       SoundPlayer.stop();
     };
@@ -66,7 +69,6 @@ const LoginScreen = props => {
   }, []);
 
   useEffect(() => {
-    playRef?.current.play();
     createRects();
   }, [createRects]);
 
@@ -106,43 +108,50 @@ const LoginScreen = props => {
       />
 
       <View style={Styles.content}>
+        <Spacer size={24} />
         <Text style={Styles.title}>Simon Says</Text>
+        <Spacer size={54} />
 
-        <Text style={Styles.subTitle}>{'Enter your your nickname :'}</Text>
-        <TextInput
-          style={Styles.input}
-          onChangeText={onChangeText}
-          value={text}
-          placeholder={
-            players?.length > 0 && userName?.length > 0
-              ? 'selected user name: ' + userName
-              : 'Enter your your nickname'
-          }
-          placeholderTextColor={'#FFFF'}
-        />
+        <View style={Styles.contentContainer}>
+          <Text style={Styles.subTitle}>{'Enter your your nickname :'}</Text>
+          <Spacer size={8} />
+          <TextInput
+            style={Styles.input}
+            onChangeText={onChangeText}
+            value={text}
+            placeholder={
+              players?.length > 0 && userName?.length > 0
+                ? 'selected user name: ' + userName
+                : 'Enter your your nickname'
+            }
+            placeholderTextColor={'#FFFF'}
+          />
 
-        {players?.length > 0 && (
-          <>
-            <Text style={Styles.subTitle}>OR</Text>
-            <View style={Styles.horizontal}>
-              <Text style={Styles.text}>select from the list:</Text>
-              <DropDown
-                list={players}
-                onSelectItem={itemIndex => {
-                  console.log('itemIndex ', itemIndex);
-                  onChangeText(players[itemIndex].name);
-                }}
-                iconColor="#FFFF"
-                itemTextStyle={Styles.dropItemText}
-                containerStyle={Styles.dropDown}
-                selectedItemName={userName}
-              />
-            </View>
-            <Spacer size={16} />
-          </>
-        )}
-        <Text style={Styles.errorText}>{errorMessage}</Text>
+          {players?.length > 0 && (
+            <>
+              <Spacer size={8} />
+              <Text style={Styles.subTitle}>OR</Text>
+              <Spacer size={8} />
+              <View style={Styles.horizontal}>
+                <Text style={Styles.text}>select from the list:</Text>
+                <DropDown
+                  list={players}
+                  onSelectItem={itemIndex => {
+                    console.log('itemIndex ', itemIndex);
+                    onChangeText(players[itemIndex].name);
+                  }}
+                  iconColor="#FFFF"
+                  itemTextStyle={Styles.dropItemText}
+                  containerStyle={Styles.dropDown}
+                  selectedItemName={userName}
+                />
+              </View>
+              <Spacer size={16} />
+            </>
+          )}
 
+          <Text style={Styles.errorText}>{errorMessage}</Text>
+        </View>
         <TouchableOpacity style={Styles.playButton} onPress={() => startGame()}>
           <LottieView
             source={require('../../assets/lotties/play.json')}
