@@ -10,9 +10,11 @@ export default StyleSheet.create({
   title: {
     color: GlobalColors.TextColors.white,
     fontSize: 30,
+    fontFamily: 'Silkscreen-Bold',
   },
   text: {
     color: GlobalColors.TextColors.white,
     fontSize: 16,
+    fontFamily: 'Silkscreen-Regular',
   },
 });

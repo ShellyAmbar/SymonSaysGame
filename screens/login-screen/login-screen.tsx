@@ -125,7 +125,7 @@ const LoginScreen = props => {
             value={text}
             placeholder={
               players?.length > 0 && userName?.length > 0
-                ? 'selected user name: ' + userName
+                ? userName
                 : 'Enter your your nickname'
             }
             placeholderTextColor={'#FFFF'}
@@ -137,7 +137,8 @@ const LoginScreen = props => {
               <Text style={Styles.subTitle}>OR</Text>
               <Spacer size={8} />
               <View style={Styles.horizontal}>
-                <Text style={Styles.text}>select from the list:</Text>
+                <Text style={Styles.text}>select from the list</Text>
+                <Spacer size={18} isVertical={false} />
                 <DropDown
                   onDeleteItem={id => {
                     dispatch(removePlayer(id));

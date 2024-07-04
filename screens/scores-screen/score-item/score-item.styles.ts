@@ -17,6 +17,7 @@ export default StyleSheet.create({
   title: {
     fontSize: 22,
     color: GlobalColors.TextColors.white,
+    fontFamily: 'Silkscreen-Regular',
   },
   subTitle: {
     fontSize: 18,

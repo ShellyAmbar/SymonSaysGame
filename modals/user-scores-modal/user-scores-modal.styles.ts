@@ -5,4 +5,7 @@ export default StyleSheet.create({
     backgroundColor: GlobalColors.Brand.primary,
   },
   icon: { color: GlobalColors.TextColors.white },
+  title: {
+    fontFamily: 'Silkscreen-Bold',
+  },
 });

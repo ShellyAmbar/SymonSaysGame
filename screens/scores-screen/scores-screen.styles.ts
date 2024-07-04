@@ -13,14 +13,17 @@ export default StyleSheet.create({
   title: {
     fontSize: 24,
     color: GlobalColors.TextColors.white,
+    fontFamily: 'Silkscreen-Bold',
   },
   subTitle: {
     fontSize: 18,
     color: GlobalColors.TextColors.primary,
+    fontFamily: 'Silkscreen-Regular',
   },
   text: {
     fontSize: 16,
     color: GlobalColors.TextColors.primary,
+    fontFamily: 'Silkscreen-Regular',
   },
   list: {
     width: '100%',

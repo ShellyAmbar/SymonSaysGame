@@ -22,7 +22,10 @@ function DrawerNavigation() {
         options={{
           headerTitle: '',
           title: 'Game',
-          drawerLabelStyle: { color: GlobalColors.TextColors.white },
+          drawerLabelStyle: {
+            color: GlobalColors.TextColors.white,
+            fontFamily: 'Silkscreen-Bold',
+          },
           headerStyle: { backgroundColor: GlobalColors.Brand.primary },
 
           headerTintColor: GlobalColors.TextColors.white,

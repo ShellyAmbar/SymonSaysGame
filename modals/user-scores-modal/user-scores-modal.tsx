@@ -10,6 +10,7 @@ const UserScoresModal = ({
 }: UserScoresModalProps) => {
   return (
     <ModalView
+      titleStyle={Styles.title}
       iconColor={Styles.icon.color}
       style={Styles.container}
       onClickClose={onClickClose}
