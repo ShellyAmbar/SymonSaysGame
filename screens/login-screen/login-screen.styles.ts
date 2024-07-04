@@ -31,17 +31,20 @@ export default StyleSheet.create({
     fontSize: 40,
     color: GlobalColors.TextColors.white,
     textAlign: 'center',
+    fontFamily: 'Silkscreen-Bold',
   },
   subTitle: {
     fontSize: 18,
     color: GlobalColors.TextColors.white,
     textAlign: 'center',
+    fontFamily: 'Silkscreen-Regular',
   },
   text: {
     fontSize: 16,
     color: GlobalColors.TextColors.white,
     textAlign: 'center',
     flex: 1,
+    fontFamily: 'Silkscreen-Regular',
   },
 
   input: {
@@ -49,6 +52,7 @@ export default StyleSheet.create({
     borderBottomColor: '#FFFF',
     borderBottomWidth: 3,
     color: GlobalColors.TextColors.white,
+    fontFamily: 'Silkscreen-Regular',
   },
 
   background: {
@@ -73,10 +77,12 @@ export default StyleSheet.create({
   dropItemText: { color: '#FFFF', fontSize: 18 },
   dropDown: {
     flex: 1,
+    fontFamily: 'Silkscreen-Regular',
   },
   errorText: {
     fontSize: 18,
     color: GlobalColors.SystemColors.Error,
     textAlign: 'center',
+    fontFamily: 'Silkscreen-Regular',
   },
 });

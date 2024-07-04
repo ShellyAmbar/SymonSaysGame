@@ -150,6 +150,7 @@ const LoginScreen = props => {
                   itemTextStyle={Styles.dropItemText}
                   containerStyle={Styles.dropDown}
                   selectedItemName={userName}
+                  selectedTextStyle={Styles.text}
                 />
               </View>
               <Spacer size={16} />

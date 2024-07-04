@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Silkscreen-Bold.ttf",
+      "sha1": "6bfeaf5711f02415f37fc15703adce1da608ad98"
+    },
+    {
+      "path": "assets/fonts/Silkscreen-Regular.ttf",
+      "sha1": "2c657df52b512897d8118d46a8d9ce2ac08191e5"
+    }
+  ]
+}
