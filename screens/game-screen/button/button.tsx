@@ -25,18 +25,23 @@ const Button = memo(
           const timeout = setTimeout(() => {
             setButtonOpacity(1);
             clearTimeout(timeout);
-          }, 300);
+          }, 200);
         },
       }));
 
       return (
         <TouchableOpacity
           ref={ref}
-          onPressIn={() => setButtonOpacity(0)}
-          onPressOut={() => setButtonOpacity(1)}
+          // onPressIn={() => setButtonOpacity(0)}
+          // onPressOut={() => setButtonOpacity(1)}
           onPress={() => {
             SoundPlayer.playAsset(button.soundWav);
-            onButtonPressed && onButtonPressed(button);
+            setButtonOpacity(0);
+            const timeout = setTimeout(() => {
+              setButtonOpacity(1);
+              onButtonPressed && onButtonPressed(button);
+              clearTimeout(timeout);
+            }, 200);
           }}
           key={button.id}
           style={{

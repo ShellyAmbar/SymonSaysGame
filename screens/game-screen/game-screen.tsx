@@ -82,7 +82,7 @@ const GameScreen = () => {
             const timeoutPlayButton = setTimeout(() => {
               buttons[randomSequence[i].id].ref?.current?.simulateButtonPress();
               clearTimeout(timeoutPlayButton);
-            }, 500 * i);
+            }, 600 * i);
           }
 
           clearTimeout(timeout);
