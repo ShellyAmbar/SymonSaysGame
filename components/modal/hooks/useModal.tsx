@@ -25,7 +25,7 @@ const useModal = (props: useModalProps) => {
     let finalheight =
       Platform.OS === 'ios'
         ? -height - diff - Styles.content.marginTop
-        : -height - diff;
+        : -height - diff + Styles.content.marginTop;
 
     Animated.timing(slideAnim, {
       toValue: finalheight,

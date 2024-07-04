@@ -32,20 +32,21 @@ const ScoresScreen = memo(() => {
 
   return (
     <View style={Styles.container}>
-      <Spacer size={24} />
+      <Spacer size={14} />
       <Text style={Styles.title}>Top scores</Text>
       <Spacer size={26} />
       <ListWithLoading
         style={Styles.list}
         contentContainerStyle={Styles.content}
         isLoading={isLoading}
-        data={sortedListOfResults}
+        data={[...sortedListOfResults]}
         renderItem={({ item, index }) => (
           <ScoreItem key={item.id} data={item} />
         )}
         keyExtractor={(item, index) => item.dateCreated.toString()}
         ItemSeparatorComponent={itemSeperator}
       />
+      <Spacer size={30} />
     </View>
   );
 });

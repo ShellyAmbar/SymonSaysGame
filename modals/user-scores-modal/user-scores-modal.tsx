@@ -3,6 +3,7 @@ import ModalView from '../../components/modal/modal';
 import UserScoresModalProps from './interfaces';
 import ScoresScreen from '../../screens/scores-screen/scores-screen';
 import Styles from './user-scores-modal.styles';
+
 const UserScoresModal = ({
   isModalVisible,
   onBackdropPress,

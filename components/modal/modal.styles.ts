@@ -72,5 +72,6 @@ export default StyleSheet.create({
     width: width,
     paddingHorizontal: 16,
     paddingTop: 8,
+    height: '90%',
   },
 });

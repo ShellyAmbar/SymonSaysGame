@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: GlobalColors.Brand.primary,
-    justifyContent: 'center',
+
     alignItems: 'center',
     width: '100%',
     height: '100%',
@@ -28,10 +28,12 @@ export default StyleSheet.create({
   list: {
     width: '100%',
     minHeight: 400,
+    maxHeight: '50%',
   },
   content: {
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: 20,
   },
 });

@@ -82,7 +82,7 @@ const GameScreen = () => {
             const timeoutPlayButton = setTimeout(() => {
               buttons[randomSequence[i].id].ref?.current?.simulateButtonPress();
               clearTimeout(timeoutPlayButton);
-            }, 600 * i);
+            }, 800 * i);
           }
 
           clearTimeout(timeout);
@@ -141,20 +141,26 @@ const GameScreen = () => {
     (button: ColorButton) => {
       setCurrentPlayedButtonIndex(prev => {
         if (button.id !== randomSequence[prev].id) {
-          SoundPlayer.playAsset(faileLevelSound);
+          const timeout1 = setTimeout(() => {
+            SoundPlayer.playAsset(faileLevelSound);
+            clearTimeout(timeout1);
+          }, 300);
 
-          if (results?.length > 0) {
-            setIsModalScoresVisible(true);
-          } else {
-            playLevelSequence(randomSequence);
-          }
+          const timeout = setTimeout(() => {
+            if (results?.length > 0) {
+              setIsModalScoresVisible(true);
+            } else {
+              playLevelSequence(randomSequence);
+            }
+            clearTimeout(timeout);
+          }, 1000);
 
           return 0;
         } else if (prev === currentLevel) {
           if (currentLevel + 1 === randomSequence.length - 1) {
             createRandonButtonsSequence(lengthOfSequence);
           }
-          setCurrentLevel(prev => prev + 1);
+
           dispatch(
             addResult({
               dateCreated: Date.now().toString(),
@@ -162,14 +168,18 @@ const GameScreen = () => {
               level: currentLevel + 1,
             })
           );
+          const timeout1 = setTimeout(() => {
+            SoundPlayer.playAsset(successLevelSound);
+            clearTimeout(timeout1);
+          }, 300);
           animationRef.current?.play();
-          SoundPlayer.playAsset(successLevelSound);
+
           setIsFinishLevel(true);
           const timeout = setTimeout(() => {
             setIsFinishLevel(false);
+            setCurrentLevel(prevval => prevval + 1);
             clearTimeout(timeout);
-          }, 2000);
-
+          }, 3000);
           return 0;
         } else if (
           prev < currentLevel &&
