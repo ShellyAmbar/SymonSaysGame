@@ -34,10 +34,14 @@ const LoginScreen = props => {
   const { menuSound } = useSounds();
   useEffect(() => {
     if (rects?.length > 0) {
+      console.log('set interval');
+
       let interval = setInterval(() => {
+        console.log(interval, 'ïnterval');
+
         const randomRect = rects[Math.floor(Math.random() * rects.length)];
         randomRect.ref.current?.simulateButtonPress();
-      }, 1000);
+      }, 3000);
 
       return () => {
         clearInterval(interval);
@@ -130,6 +134,8 @@ const LoginScreen = props => {
             }
             placeholderTextColor={'#FFFF'}
           />
+          <Spacer size={18} />
+          <Text style={Styles.errorText}>{errorMessage}</Text>
 
           {players?.length > 0 && (
             <>
@@ -158,7 +164,7 @@ const LoginScreen = props => {
             </>
           )}
 
-          <Text style={Styles.errorText}>{errorMessage}</Text>
+          <Spacer size={18} />
         </View>
         <TouchableOpacity style={Styles.playButton} onPress={() => startGame()}>
           <LottieView
