@@ -148,6 +148,16 @@ const LoginScreen = props => {
                 <DropDown
                   onDeleteItem={id => {
                     dispatch(removePlayer(id));
+                    console.log(
+                      'id === userName',
+                      id.toLowerCase() === userName.toLowerCase(),
+                      id,
+                      userName
+                    );
+
+                    if (id.toLowerCase() === userName.toLowerCase()) {
+                      dispatch(setUserName(null));
+                    }
                   }}
                   list={players}
                   onSelectItem={itemIndex => {
