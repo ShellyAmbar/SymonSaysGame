@@ -18,7 +18,7 @@ const CustomDrawerContent = props => {
     >
       <Spacer size={20} />
       <View style={Styles.header}>
-        <Text style={Styles.title}>{`Hey ${userName}`}</Text>
+        <Text style={Styles.title}>{`Hey\n${userName}`}</Text>
       </View>
       <Spacer size={20} />
       <DrawerItemList {...props} />

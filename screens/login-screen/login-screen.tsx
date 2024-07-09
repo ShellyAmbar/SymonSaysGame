@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Styles from './login-screen.styles';
@@ -115,77 +117,81 @@ const LoginScreen = props => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        <View style={Styles.content}>
-          <Spacer size={24} />
-          <Text style={Styles.title}>{'MemoMe'}</Text>
-          <Spacer size={54} />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={Styles.content}>
+            <Spacer size={24} />
+            <Text style={Styles.title}>{'MemoMe'}</Text>
+            <Spacer size={54} />
 
-          <View style={Styles.contentContainer}>
-            <Text style={Styles.subTitle}>{'Enter your your nickname :'}</Text>
-            <Spacer size={8} />
-            <TextInput
-              style={Styles.input}
-              onChangeText={onChangeText}
-              value={text}
-              placeholder={
-                players?.length > 0 && userName?.length > 0
-                  ? userName
-                  : 'Enter your your nickname'
-              }
-              placeholderTextColor={'#FFFF'}
-            />
-            <Spacer size={18} />
-            <Text style={Styles.errorText}>{errorMessage}</Text>
+            <View style={Styles.contentContainer}>
+              <Text style={Styles.subTitle}>
+                {'Enter your your nickname :'}
+              </Text>
+              <Spacer size={8} />
+              <TextInput
+                style={Styles.input}
+                onChangeText={onChangeText}
+                value={text}
+                placeholder={
+                  players?.length > 0 && userName?.length > 0
+                    ? userName
+                    : 'Enter your your nickname'
+                }
+                placeholderTextColor={'#FFFF'}
+              />
+              <Spacer size={18} />
+              <Text style={Styles.errorText}>{errorMessage}</Text>
 
-            {players?.length > 0 && (
-              <>
-                <Spacer size={8} />
-                <Text style={Styles.subTitle}>OR</Text>
-                <Spacer size={8} />
-                <View style={Styles.horizontal}>
-                  <Text style={Styles.text}>select from the list</Text>
-                  <Spacer size={18} isVertical={false} />
-                  <DropDown
-                    onDeleteItem={id => {
-                      dispatch(removePlayer(id));
+              {players?.length > 0 && (
+                <>
+                  <Spacer size={8} />
+                  <Text style={Styles.subTitle}>OR</Text>
+                  <Spacer size={8} />
+                  <View style={Styles.horizontal}>
+                    <Text style={Styles.text}>select from the list</Text>
+                    <Spacer size={18} isVertical={false} />
+                    <DropDown
+                      onDeleteItem={id => {
+                        dispatch(removePlayer(id));
 
-                      if (id.toLowerCase() === userName.toLowerCase()) {
-                        dispatch(setUserName(null));
-                      }
-                    }}
-                    list={players}
-                    onSelectItem={itemIndex => {
-                      onChangeText(players[itemIndex].name);
-                    }}
-                    iconColor="#FFFF"
-                    itemTextStyle={Styles.dropItemText}
-                    itemContainerStyle={Styles.itemContainerStyle}
-                    containerStyle={Styles.dropDown}
-                    listStyle={Styles.dropDownList}
-                    listContentContainer={Styles.dropDownContainer}
-                    selectedItemName={userName}
-                    selectedTextStyle={Styles.text}
-                  />
-                </View>
-                <Spacer size={16} />
-              </>
-            )}
+                        if (id.toLowerCase() === userName.toLowerCase()) {
+                          dispatch(setUserName(null));
+                        }
+                      }}
+                      list={players}
+                      onSelectItem={itemIndex => {
+                        onChangeText(players[itemIndex].name);
+                      }}
+                      iconColor="#FFFF"
+                      itemTextStyle={Styles.dropItemText}
+                      itemContainerStyle={Styles.itemContainerStyle}
+                      containerStyle={Styles.dropDown}
+                      listStyle={Styles.dropDownList}
+                      listContentContainer={Styles.dropDownContainer}
+                      selectedItemName={userName}
+                      selectedTextStyle={Styles.text}
+                    />
+                  </View>
+                  <Spacer size={16} />
+                </>
+              )}
 
-            <Spacer size={18} />
+              <Spacer size={18} />
+            </View>
           </View>
-          <TouchableOpacity
-            style={Styles.playButton}
-            onPress={() => startGame()}
-          >
-            <LottieView
-              source={require('../../assets/lotties/play.json')}
-              autoPlay
-              loop
-              ref={playRef}
-            />
-          </TouchableOpacity>
-        </View>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
+      <View style={Styles.playButton}>
+        <TouchableOpacity onPress={() => startGame()}>
+          <LottieView
+            source={require('../../assets/lotties/playBtn2.json')}
+            autoPlay
+            loop
+            ref={playRef}
+            style={{ height: 150, width: 150 }}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

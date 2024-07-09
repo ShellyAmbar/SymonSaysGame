@@ -6,11 +6,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
+    paddingHorizontal: 10,
   },
   title: {
     color: GlobalColors.TextColors.white,
-    fontSize: 30,
+    fontSize: 22,
     fontFamily: 'Silkscreen-Bold',
+    textAlign: 'center',
   },
   text: {
     color: GlobalColors.TextColors.white,

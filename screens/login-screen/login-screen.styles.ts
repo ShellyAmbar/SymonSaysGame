@@ -18,10 +18,10 @@ export default StyleSheet.create({
     //  paddingTop: 24,
     //  paddingHorizontal: 20,
     //  flex: 1,
-    // justifyContent: 'space-evenly',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     flexGrow: 1,
-    justifyContent: 'center',
+    //   justifyContent: 'center',
     padding: 20,
   },
   horizontal: {
@@ -72,7 +72,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   playButton: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 200,
   },
   scrollContainer: {
