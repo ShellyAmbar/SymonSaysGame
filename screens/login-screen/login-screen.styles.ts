@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
 
   content: {
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
     zIndex: 1,
     //  paddingTop: 24,
     //  paddingHorizontal: 20,
@@ -72,7 +72,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   playButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
