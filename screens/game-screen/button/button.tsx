@@ -1,11 +1,5 @@
-import { TouchableOpacity } from 'react-native';
-import React, {
-  forwardRef,
-  memo,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import { Animated, TouchableWithoutFeedback } from 'react-native';
+import React, { forwardRef, memo, useImperativeHandle, useRef } from 'react';
 import { ButtonProps } from './interfaces';
 import Styles from './button.styles';
 import SoundPlayer from 'react-native-sound-player';
@@ -16,43 +10,61 @@ const Button = memo(
       { onButtonPressed, button, style, disabled, ...props }: ButtonProps,
       ref: any
     ) => {
-      const [buttonOpacity, setButtonOpacity] = useState(1);
       useImperativeHandle(ref, () => ({
         simulateButtonPress: () => {
           SoundPlayer.playAsset(button.soundWav);
-
-          setButtonOpacity(0);
+          onPressIn();
           const timeout = setTimeout(() => {
-            setButtonOpacity(1);
+            onPressOut();
             clearTimeout(timeout);
           }, 300);
         },
       }));
 
+      const scaleValue = useRef(new Animated.Value(1)).current;
+
+      const onPressIn = () => {
+        Animated.spring(scaleValue, {
+          toValue: 0.8,
+          useNativeDriver: true,
+        }).start();
+      };
+
+      const onPressOut = () => {
+        Animated.spring(scaleValue, {
+          toValue: 1,
+          friction: 3,
+          tension: 40,
+          useNativeDriver: true,
+        }).start();
+      };
+
       return (
-        <TouchableOpacity
-          ref={ref}
-          //  onPressIn={() => setButtonOpacity(0)}
-          //  onPressOut={() => setButtonOpacity(1)}
-          onPress={() => {
-            SoundPlayer.playAsset(button.soundWav);
-            onButtonPressed && onButtonPressed(button);
-            setButtonOpacity(0);
-            const timeout1 = setTimeout(() => {
-              setButtonOpacity(1);
-              clearTimeout(timeout1);
-            }, 300);
-          }}
-          key={button.id}
-          style={{
-            ...Styles.button,
-            ...style,
-            backgroundColor: button.name,
-            opacity: buttonOpacity,
-          }}
-          disabled={disabled}
-          {...props}
-        />
+        <>
+          <TouchableWithoutFeedback
+            ref={ref}
+            onPressIn={() => onPressIn()}
+            onPressOut={() => onPressOut()}
+            onPress={() => {
+              SoundPlayer.playAsset(button.soundWav);
+              onButtonPressed && onButtonPressed(button);
+            }}
+            key={button.id}
+            disabled={disabled}
+            {...props}
+          >
+            <Animated.View
+              style={[
+                {
+                  ...Styles.button,
+                  ...style,
+                  backgroundColor: button.name,
+                },
+                { transform: [{ scale: scaleValue }] },
+              ]}
+            />
+          </TouchableWithoutFeedback>
+        </>
       );
     }
   )

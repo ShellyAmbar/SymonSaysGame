@@ -34,11 +34,7 @@ const LoginScreen = props => {
   const { menuSound } = useSounds();
   useEffect(() => {
     if (rects?.length > 0) {
-      console.log('set interval');
-
       let interval = setInterval(() => {
-        console.log(interval, 'ïnterval');
-
         const randomRect = rects[Math.floor(Math.random() * rects.length)];
         randomRect.ref.current?.simulateButtonPress();
       }, 3000);
@@ -50,7 +46,11 @@ const LoginScreen = props => {
   }, [rects]);
 
   useEffect(() => {
-    SoundPlayer.playAsset(menuSound);
+    if (SoundPlayer) {
+      SoundPlayer.stop();
+      SoundPlayer.playAsset(menuSound);
+    }
+
     const listener = SoundPlayer.addEventListener('FinishedPlaying', () => {
       SoundPlayer.resume();
     });
@@ -93,17 +93,13 @@ const LoginScreen = props => {
         setErrorMessage('You need to enter a nickname first');
         setTimeout(() => {
           setErrorMessage(null);
-        }, 1000);
+        }, 2000);
       }
     }
   }, [dispatch, props.navigation, text, setErrorMessage, userName]);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={Styles.container}
-      enabled
-    >
+    <View style={{ flex: 1 }}>
       <FlatList
         style={Styles.background}
         data={rects}
@@ -115,77 +111,79 @@ const LoginScreen = props => {
         contentContainerStyle={Styles.grid}
       />
 
-      <View style={Styles.content}>
-        <Spacer size={24} />
-        <Text style={Styles.title}>{'MemoMe'}</Text>
-        <Spacer size={54} />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
+        <View style={Styles.content}>
+          <Spacer size={24} />
+          <Text style={Styles.title}>{'MemoMe'}</Text>
+          <Spacer size={54} />
 
-        <View style={Styles.contentContainer}>
-          <Text style={Styles.subTitle}>{'Enter your your nickname :'}</Text>
-          <Spacer size={8} />
-          <TextInput
-            style={Styles.input}
-            onChangeText={onChangeText}
-            value={text}
-            placeholder={
-              players?.length > 0 && userName?.length > 0
-                ? userName
-                : 'Enter your your nickname'
-            }
-            placeholderTextColor={'#FFFF'}
-          />
-          <Spacer size={18} />
-          <Text style={Styles.errorText}>{errorMessage}</Text>
+          <View style={Styles.contentContainer}>
+            <Text style={Styles.subTitle}>{'Enter your your nickname :'}</Text>
+            <Spacer size={8} />
+            <TextInput
+              style={Styles.input}
+              onChangeText={onChangeText}
+              value={text}
+              placeholder={
+                players?.length > 0 && userName?.length > 0
+                  ? userName
+                  : 'Enter your your nickname'
+              }
+              placeholderTextColor={'#FFFF'}
+            />
+            <Spacer size={18} />
+            <Text style={Styles.errorText}>{errorMessage}</Text>
 
-          {players?.length > 0 && (
-            <>
-              <Spacer size={8} />
-              <Text style={Styles.subTitle}>OR</Text>
-              <Spacer size={8} />
-              <View style={Styles.horizontal}>
-                <Text style={Styles.text}>select from the list</Text>
-                <Spacer size={18} isVertical={false} />
-                <DropDown
-                  onDeleteItem={id => {
-                    dispatch(removePlayer(id));
-                    console.log(
-                      'id === userName',
-                      id.toLowerCase() === userName.toLowerCase(),
-                      id,
-                      userName
-                    );
+            {players?.length > 0 && (
+              <>
+                <Spacer size={8} />
+                <Text style={Styles.subTitle}>OR</Text>
+                <Spacer size={8} />
+                <View style={Styles.horizontal}>
+                  <Text style={Styles.text}>select from the list</Text>
+                  <Spacer size={18} isVertical={false} />
+                  <DropDown
+                    onDeleteItem={id => {
+                      dispatch(removePlayer(id));
 
-                    if (id.toLowerCase() === userName.toLowerCase()) {
-                      dispatch(setUserName(null));
-                    }
-                  }}
-                  list={players}
-                  onSelectItem={itemIndex => {
-                    onChangeText(players[itemIndex].name);
-                  }}
-                  iconColor="#FFFF"
-                  itemTextStyle={Styles.dropItemText}
-                  containerStyle={Styles.dropDown}
-                  selectedItemName={userName}
-                  selectedTextStyle={Styles.text}
-                />
-              </View>
-              <Spacer size={16} />
-            </>
-          )}
+                      if (id.toLowerCase() === userName.toLowerCase()) {
+                        dispatch(setUserName(null));
+                      }
+                    }}
+                    list={players}
+                    onSelectItem={itemIndex => {
+                      onChangeText(players[itemIndex].name);
+                    }}
+                    iconColor="#FFFF"
+                    itemTextStyle={Styles.dropItemText}
+                    containerStyle={Styles.dropDown}
+                    selectedItemName={userName}
+                    selectedTextStyle={Styles.text}
+                  />
+                </View>
+                <Spacer size={16} />
+              </>
+            )}
 
-          <Spacer size={18} />
+            <Spacer size={18} />
+          </View>
+          <TouchableOpacity
+            style={Styles.playButton}
+            onPress={() => startGame()}
+          >
+            <LottieView
+              source={require('../../assets/lotties/play.json')}
+              autoPlay
+              loop
+              ref={playRef}
+            />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={Styles.playButton} onPress={() => startGame()}>
-          <LottieView
-            source={require('../../assets/lotties/play.json')}
-            autoPlay
-            loop
-            ref={playRef}
-          />
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 

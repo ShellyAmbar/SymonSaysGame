@@ -3,7 +3,7 @@ import { GlobalColors } from '../../assets/styles/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: GlobalColors.Brand.secondary,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -14,7 +14,10 @@ export default StyleSheet.create({
     zIndex: 0,
   },
   content: {
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+
+    flex: 1,
+    paddingHorizontal: 10,
   },
   lottie: {
     justifyContent: 'center',

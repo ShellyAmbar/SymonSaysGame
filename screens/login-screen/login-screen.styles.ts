@@ -15,11 +15,14 @@ export default StyleSheet.create({
   content: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     zIndex: 1,
-    paddingTop: 24,
-    paddingHorizontal: 20,
-    flex: 1,
-    justifyContent: 'space-evenly',
+    //  paddingTop: 24,
+    //  paddingHorizontal: 20,
+    //  flex: 1,
+    // justifyContent: 'space-evenly',
     alignItems: 'center',
+    flexGrow: 1,
+    justifyContent: 'center',
+    padding: 20,
   },
   horizontal: {
     width: '100%',

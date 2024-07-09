@@ -15,9 +15,12 @@ export const GlobalColors = {
     '#FF4500',
   ],
   Brand: {
-    primary: '#1E90FF',
-    secondary: '#00BFFF',
-    thierd: '#00CED1',
+    // primary: '#1E90FF',
+    // secondary: '#00BFFF',
+    // thierd: '#00CED1',
+    primary: 'rgba(0,0,0,0.9)',
+    secondary: 'rgba(0,0,0,0.8)',
+    thierd: 'rgba(0,0,0,0.7)',
   },
   Border: '#D7D9DE',
   SystemColors: {

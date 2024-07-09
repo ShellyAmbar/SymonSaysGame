@@ -31,6 +31,7 @@ const GameScreen = () => {
   const [buttons, setButtons] = useState<ColorButton[]>([]);
   const [isButtnosEnabled, setIsButtnosEnabled] = useState(true);
   const [layoutHeight, setLayoutHeight] = useState(0);
+  const [layoutWidth, setLayoutWidth] = useState(0);
 
   const { userName } = useSelector(state => state.game);
   const { colorsSequence } = useSelector(state => state.colorsSequence);
@@ -86,7 +87,7 @@ const GameScreen = () => {
           }
 
           clearTimeout(timeout);
-        }, 1000);
+        }, 0);
       }
     },
     [buttons, currentLevel]
@@ -119,7 +120,7 @@ const GameScreen = () => {
 
   useEffect(() => {
     if (buttons.length === 0) {
-      createUniqButtons(10);
+      createUniqButtons(4);
     } else if (buttons.length > 0) {
       createRandonButtonsSequence(lengthOfSequence);
     }
@@ -194,42 +195,41 @@ const GameScreen = () => {
   );
 
   const calculateItemHeight = useMemo(() => {
-    return layoutHeight / (buttons.length / 2);
-  }, [buttons.length, layoutHeight]);
-  const itemSeperator = () => <View style={{ height: 0 }} />;
+    // return layoutHeight / (buttons.length / 2);
+    return layoutWidth / 2 - 20;
+  }, [layoutWidth]);
+  const itemSeperator = () => <View style={{ height: 20 }} />;
 
   return (
-    <View
-      onLayout={e => {
-        setLayoutHeight(e.nativeEvent.layout.height);
-      }}
-      style={Styles.container}
-    >
-      {layoutHeight > 0 && (
-        <FlatList
-          numColumns={2}
-          ItemSeparatorComponent={itemSeperator}
-          contentContainerStyle={Styles.content}
-          style={Styles.buttonsContainer}
-          data={buttons}
-          renderItem={({ item, index }) => (
-            <Button
-              disabled={!isButtnosEnabled}
-              key={item.id}
-              button={item}
-              onButtonPressed={button => {
-                if (isButtnosEnabled) {
-                  onButtonPressed(button);
-                }
-              }}
-              ref={item.ref}
-              style={{
-                height: calculateItemHeight,
-              }}
-            />
-          )}
-        />
-      )}
+    <View style={Styles.container}>
+      <FlatList
+        onLayout={e => {
+          setLayoutHeight(e.nativeEvent.layout.height);
+          setLayoutWidth(e.nativeEvent.layout.width);
+        }}
+        numColumns={2}
+        ItemSeparatorComponent={itemSeperator}
+        contentContainerStyle={Styles.content}
+        style={Styles.buttonsContainer}
+        data={buttons}
+        renderItem={({ item, index }) => (
+          <Button
+            disabled={!isButtnosEnabled}
+            key={item.id}
+            button={item}
+            onButtonPressed={button => {
+              if (isButtnosEnabled) {
+                onButtonPressed(button);
+              }
+            }}
+            ref={item.ref}
+            style={{
+              height: calculateItemHeight,
+            }}
+          />
+        )}
+      />
+
       {isfinishLevel && (
         <View style={Styles.lottie}>
           <LottieView
