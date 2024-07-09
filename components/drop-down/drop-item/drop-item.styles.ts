@@ -8,6 +8,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: 'rgba(255,255,255,0.6)',
     borderRadius: 10,
+    paddingVertical: 10,
   },
   titleContainer: {
     width: '100%',
@@ -22,8 +23,8 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   closeButton: {
-    width: 32,
-    height: 32,
+    width: 20,
+    height: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },

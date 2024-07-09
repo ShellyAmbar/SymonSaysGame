@@ -159,7 +159,10 @@ const LoginScreen = props => {
                     }}
                     iconColor="#FFFF"
                     itemTextStyle={Styles.dropItemText}
+                    itemContainerStyle={Styles.itemContainerStyle}
                     containerStyle={Styles.dropDown}
+                    listStyle={Styles.dropDownList}
+                    listContentContainer={Styles.dropDownContainer}
                     selectedItemName={userName}
                     selectedTextStyle={Styles.text}
                   />

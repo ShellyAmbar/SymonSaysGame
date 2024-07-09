@@ -9,9 +9,10 @@ const DropItem = ({
   onItemPressed,
   textStyle,
   onDeleteItemPressed,
+  containerStyle,
 }: DropItemProps) => {
   return (
-    <View style={Styles.container}>
+    <View style={[Styles.container, { ...containerStyle }]}>
       <TouchableOpacity
         onPress={() => {
           onDeleteItemPressed(item.id);

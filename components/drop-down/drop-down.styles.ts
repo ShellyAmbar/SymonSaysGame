@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { GlobalColors } from '../../assets/styles/colors';
 
 export default StyleSheet.create({
   container: {
@@ -15,10 +16,14 @@ export default StyleSheet.create({
   list: {
     width: '100%',
     flexDirection: 'column',
-
-    maxHeight: 200,
     position: 'absolute',
     top: 35,
+    borderWidth: 1,
+    borderColor: GlobalColors.TextColors.white,
+    padding: 5,
+  },
+  contentContainerList: {
+    paddingBottom: 50,
   },
   selectedText: {
     color: '#FFFF',

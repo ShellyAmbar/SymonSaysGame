@@ -175,6 +175,7 @@ const useGameScreen = () => {
           animationRef.current?.play();
 
           setIsFinishLevel(true);
+          setShowCountDown(false);
           const timeout = setTimeout(() => {
             setIsFinishLevel(false);
             setCurrentLevel(prevval => prevval + 1);

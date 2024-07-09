@@ -16,6 +16,10 @@ const DropDown = ({
   containerStyle,
   selectedItemName,
   onDeleteItem,
+  listStyle,
+  listContentContainer,
+  itemContainerStyle,
+  ...props
 }: DropDownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -68,7 +72,11 @@ const DropDown = ({
         <>
           <FlatList
             ItemSeparatorComponent={() => <Spacer isVertical size={10} />}
-            style={Styles.list}
+            style={[Styles.list, { ...listStyle }]}
+            contentContainerStyle={[
+              Styles.contentContainerList,
+              { ...listContentContainer },
+            ]}
             data={list}
             renderItem={({
               item,
@@ -83,8 +91,10 @@ const DropDown = ({
                 key={item.id}
                 onItemPressed={id => onItemPressed(id)}
                 textStyle={itemTextStyle}
+                containerStyle={itemContainerStyle}
               />
             )}
+            {...props}
           />
         </>
       )}

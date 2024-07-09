@@ -10,6 +10,7 @@ import UserScoresModal from '../../modals/user-scores-modal/user-scores-modal';
 import useGameScreen from './hooks/useGameScreen';
 import CircularTimer from 'react-native-animated-circular-counter';
 import { GlobalColors } from '../../assets/styles/colors';
+import Spacer from '../../components/spacer/spacer';
 const GameScreen = () => {
   const {
     calculateItemHeight,
@@ -31,7 +32,7 @@ const GameScreen = () => {
 
   return (
     <View style={Styles.container}>
-      {showCountDown && (
+      {showCountDown ? (
         <CircularTimer
           duration={(currentLevel + 1) * 2}
           height={60}
@@ -46,6 +47,8 @@ const GameScreen = () => {
           intervalDuration={1000}
           strokeWidth={3}
         />
+      ) : (
+        <Spacer size={60} />
       )}
       <FlatList
         onLayout={e => {

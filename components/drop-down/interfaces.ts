@@ -1,7 +1,7 @@
-import { TextStyle, ViewStyle } from 'react-native';
+import { FlatListProps, TextStyle, ViewStyle } from 'react-native';
 import { ItemData } from './drop-item/interfaces';
 
-type DropDownProps = {
+interface DropDownProps extends FlatListProps<any> {
   containerStyle?: ViewStyle;
   iconColor?: string;
   list: ItemData[];
@@ -10,6 +10,9 @@ type DropDownProps = {
   itemTextStyle?: TextStyle;
   selectedItemName?: string;
   onDeleteItem: (selectedId: string) => void;
-};
+  listStyle?: ViewStyle;
+  listContentContainer?: ViewStyle;
+  itemContainerStyle?: ViewStyle;
+}
 
 export default DropDownProps;

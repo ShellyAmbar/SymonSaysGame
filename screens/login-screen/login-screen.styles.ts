@@ -56,6 +56,7 @@ export default StyleSheet.create({
     borderBottomWidth: 3,
     color: GlobalColors.TextColors.white,
     fontFamily: 'Silkscreen-Regular',
+    paddingVertical: 0,
   },
 
   background: {
@@ -77,10 +78,22 @@ export default StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
   },
-  dropItemText: { color: '#FFFF', fontSize: 18 },
+  dropItemText: {
+    color: '#FFFF',
+    fontSize: 16,
+    fontFamily: 'Silkscreen-Regular',
+  },
+  itemContainerStyle: {
+    paddingVertical: 5,
+  },
   dropDown: {
     flex: 1,
-    fontFamily: 'Silkscreen-Regular',
+  },
+  dropDownList: {
+    maxHeight: 100,
+  },
+  dropDownContainer: {
+    paddingBottom: 50,
   },
   errorText: {
     fontSize: 18,

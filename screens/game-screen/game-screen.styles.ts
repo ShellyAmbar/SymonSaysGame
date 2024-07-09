@@ -34,7 +34,7 @@ export default StyleSheet.create({
   },
   nextLevelText: {
     fontSize: 30,
-    color: GlobalColors.Brand.primary,
+    color: GlobalColors.TextColors.white,
 
     borderRadius: 30,
     padding: 15,
