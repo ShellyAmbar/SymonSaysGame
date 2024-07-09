@@ -3,6 +3,7 @@ import React, { forwardRef, memo, useImperativeHandle, useRef } from 'react';
 import { ButtonProps } from './interfaces';
 import Styles from './button.styles';
 import SoundPlayer from 'react-native-sound-player';
+import { promiseTimeout } from '../../../utils/hooks/promises';
 
 const Button = memo(
   forwardRef(
@@ -11,14 +12,16 @@ const Button = memo(
       ref: any
     ) => {
       useImperativeHandle(ref, () => ({
-        simulateButtonPress: () => {
-          SoundPlayer.playAsset(button.soundWav);
-          onPressIn();
-          const timeout = setTimeout(() => {
-            onPressOut();
-            clearTimeout(timeout);
-          }, 300);
-        },
+        simulateButtonPress: async () =>
+          new Promise<void>(async (resolve, reject) => {
+            SoundPlayer.playAsset(button.soundWav);
+            onPressIn();
+            const timeout = setTimeout(() => {
+              onPressOut();
+              clearTimeout(timeout);
+              resolve();
+            }, 300);
+          }),
       }));
 
       const scaleValue = useRef(new Animated.Value(1)).current;

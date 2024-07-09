@@ -31,6 +31,7 @@ const useGameScreen = () => {
   const [currentLevel, setCurrentLevel] = useState(getUserLevel);
   const [lengthOfSequence, setLengthOfSequence] = useState(50);
   const [layoutWidth, setLayoutWidth] = useState(0);
+  const [showCountDown, setShowCountDown] = useState(false);
 
   const createUniqButtons = useCallback(
     (numOfButtons: number) => {
@@ -64,8 +65,13 @@ const useGameScreen = () => {
 
         const timeout = setTimeout(() => {
           for (let i = 0; i <= currentLevel; i++) {
-            const timeoutPlayButton = setTimeout(() => {
-              buttons[randomSequence[i].id].ref?.current?.simulateButtonPress();
+            const timeoutPlayButton = setTimeout(async () => {
+              await buttons[
+                randomSequence[i].id
+              ].ref?.current?.simulateButtonPress();
+              if (i === currentLevel) {
+                setShowCountDown(true);
+              }
               clearTimeout(timeoutPlayButton);
             }, 800 * i);
           }
@@ -118,23 +124,36 @@ const useGameScreen = () => {
       }, 300);
     }
   }, [currentLevel, randomSequence?.length?.toString()]);
+
+  const onFailure = useCallback(() => {
+    setShowCountDown(false);
+    const timeout1 = setTimeout(() => {
+      SoundPlayer.playAsset(faileLevelSound);
+      clearTimeout(timeout1);
+    }, 300);
+
+    const timeout = setTimeout(() => {
+      if (results?.length > 0) {
+        setIsModalScoresVisible(true);
+      } else {
+        playLevelSequence(randomSequence);
+      }
+      clearTimeout(timeout);
+    }, 300);
+  }, [
+    setIsModalScoresVisible,
+    playLevelSequence,
+    setShowCountDown,
+    results?.length,
+    faileLevelSound,
+    randomSequence,
+  ]);
+
   const onButtonPressed = useCallback(
     (button: ColorButton) => {
       setCurrentPlayedButtonIndex(prev => {
         if (button.id !== randomSequence[prev].id) {
-          const timeout1 = setTimeout(() => {
-            SoundPlayer.playAsset(faileLevelSound);
-            clearTimeout(timeout1);
-          }, 300);
-
-          const timeout = setTimeout(() => {
-            if (results?.length > 0) {
-              setIsModalScoresVisible(true);
-            } else {
-              playLevelSequence(randomSequence);
-            }
-            clearTimeout(timeout);
-          }, 1000);
+          onFailure();
 
           return 0;
         } else if (prev === currentLevel) {
@@ -190,6 +209,8 @@ const useGameScreen = () => {
     currentLevel,
     playLevelSequence,
     randomSequence,
+    showCountDown,
+    onFailure,
   };
 };
 

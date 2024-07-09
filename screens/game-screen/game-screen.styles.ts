@@ -6,6 +6,8 @@ export default StyleSheet.create({
     backgroundColor: GlobalColors.Brand.secondary,
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 0,
+    paddingTop: 20,
   },
 
   buttonsContainer: {
