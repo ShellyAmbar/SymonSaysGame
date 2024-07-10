@@ -26,10 +26,14 @@ export const resultsSlice = createSlice({
         state.results.push(action.payload);
       }
     },
+
     deleteResult: (state, action) => {
-      state.results.filter(
-        result => result.dateCreated !== action.payload.dateCreated
+      const lowerCaseId = action.payload.toLowerCase();
+      const filteredList = state.results.filter(
+        item => item.userName.toLowerCase() !== lowerCaseId
       );
+
+      state.results = [...filteredList];
     },
   },
 });

@@ -18,6 +18,7 @@ import {
   addPlayer,
   removePlayer,
 } from '../../store/features/game/game-slice';
+import { deleteResult } from '../../store/features/results/results-slice';
 import { useDispatch, useSelector } from 'react-redux';
 import Spacer from '../../components/spacer/spacer';
 import LottieView from 'lottie-react-native';
@@ -153,7 +154,7 @@ const LoginScreen = props => {
                     <DropDown
                       onDeleteItem={id => {
                         dispatch(removePlayer(id));
-
+                        dispatch(deleteResult(id));
                         if (id.toLowerCase() === userName.toLowerCase()) {
                           dispatch(setUserName(null));
                         }
