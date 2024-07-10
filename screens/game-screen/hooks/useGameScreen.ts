@@ -139,7 +139,7 @@ const useGameScreen = () => {
         playLevelSequence(randomSequence);
       }
       clearTimeout(timeout);
-    }, 300);
+    }, 2000);
   }, [
     setIsModalScoresVisible,
     playLevelSequence,

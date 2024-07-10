@@ -1,4 +1,4 @@
-package com.MemoMe
+package com.shellyambar.SimonSays
 
 import android.app.Application
 import com.facebook.react.PackageList

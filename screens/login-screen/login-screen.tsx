@@ -39,7 +39,7 @@ const LoginScreen = props => {
       let interval = setInterval(() => {
         const randomRect = rects[Math.floor(Math.random() * rects.length)];
         randomRect.ref.current?.simulateButtonPress();
-      }, 3000);
+      }, 500);
 
       return () => {
         clearInterval(interval);
@@ -120,7 +120,7 @@ const LoginScreen = props => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={Styles.content}>
             <Spacer size={24} />
-            <Text style={Styles.title}>{'MemoMe'}</Text>
+            <Text style={Styles.title}>{'Simon Says'}</Text>
             <Spacer size={54} />
 
             <View style={Styles.contentContainer}>
