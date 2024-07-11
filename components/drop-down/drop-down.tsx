@@ -19,6 +19,8 @@ const DropDown = ({
   listStyle,
   listContentContainer,
   itemContainerStyle,
+  renderItem,
+  data,
   ...props
 }: DropDownProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,22 +80,20 @@ const DropDown = ({
               { ...listContentContainer },
             ]}
             data={list}
-            renderItem={({
-              item,
-              index,
-            }: {
-              item: ItemData;
-              index: number;
-            }) => (
-              <DropItem
-                onDeleteItemPressed={id => onDeleteItem(id)}
-                item={item}
-                key={item.id}
-                onItemPressed={id => onItemPressed(id)}
-                textStyle={itemTextStyle}
-                containerStyle={itemContainerStyle}
-              />
-            )}
+            renderItem={
+              renderItem
+                ? renderItem
+                : ({ item, index }: { item: ItemData; index: number }) => (
+                    <DropItem
+                      onDeleteItemPressed={id => onDeleteItem(id)}
+                      item={item}
+                      key={item.id}
+                      onItemPressed={id => onItemPressed(id)}
+                      textStyle={itemTextStyle}
+                      containerStyle={itemContainerStyle}
+                    />
+                  )
+            }
             {...props}
           />
         </>

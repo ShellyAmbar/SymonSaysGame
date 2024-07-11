@@ -36,7 +36,6 @@ const LoginScreen = props => {
     text,
     playRef,
     players,
-    dispatch,
     errorMessage,
     rects,
     deleteUser,
@@ -60,52 +59,49 @@ const LoginScreen = props => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={Styles.content}>
-            <Spacer size={64} />
+            <Spacer size={24} />
             <Text style={Styles.title}>{'Simon Says'}</Text>
             <Spacer size={54} />
 
             <View style={Styles.contentContainer}>
-              <Text style={Styles.subTitle}>
-                {'Enter your your nickname :'}
-              </Text>
-              <Spacer size={8} />
               <TextInput
                 style={Styles.input}
                 onChangeText={onChangeText}
                 value={text}
                 placeholder={
-                  players?.length > 0 && userName?.length > 0 ? userName : ''
+                  players?.length > 0 && userName?.length > 0
+                    ? userName
+                    : 'Enter your nickname'
                 }
                 placeholderTextColor={'#FFFF'}
               />
-              <Spacer size={18} />
-              <Text style={Styles.errorText}>{errorMessage}</Text>
+              <Spacer size={8} />
+              {errorMessage?.length > 0 && (
+                <>
+                  <Spacer size={8} />
+                  <Text style={Styles.errorText}>{errorMessage}</Text>{' '}
+                </>
+              )}
 
               {players?.length > 0 && (
                 <>
-                  <Spacer size={8} />
                   <Text style={Styles.subTitle}>OR</Text>
-                  <Spacer size={8} />
-                  <View style={Styles.horizontal}>
-                    <Text style={Styles.text}>select from the list</Text>
-                    <Spacer size={18} isVertical={false} />
-                    <DropDown
-                      onDeleteItem={deleteUser}
-                      list={players}
-                      onSelectItem={itemIndex => {
-                        onChangeText(players[itemIndex].name);
-                      }}
-                      iconColor="#FFFF"
-                      itemTextStyle={Styles.dropItemText}
-                      itemContainerStyle={Styles.itemContainerStyle}
-                      containerStyle={Styles.dropDown}
-                      listStyle={Styles.dropDownList}
-                      listContentContainer={Styles.dropDownContainer}
-                      selectedItemName={userName}
-                      selectedTextStyle={Styles.text}
-                    />
-                  </View>
-                  <Spacer size={16} />
+                  <Spacer size={18} />
+                  <DropDown
+                    onDeleteItem={id => deleteUser(id)}
+                    list={players}
+                    onSelectItem={itemIndex => {
+                      onChangeText(players[itemIndex].name);
+                    }}
+                    iconColor="#FFFF"
+                    itemTextStyle={Styles.dropItemText}
+                    itemContainerStyle={Styles.itemContainerStyle}
+                    containerStyle={Styles.dropDown}
+                    listStyle={Styles.dropDownList}
+                    listContentContainer={Styles.dropDownContainer}
+                    selectedItemName={userName}
+                    selectedTextStyle={Styles.text}
+                  />
                 </>
               )}
 
@@ -121,7 +117,7 @@ const LoginScreen = props => {
             autoPlay
             loop
             ref={playRef}
-            style={{ height: 150, width: 150 }}
+            style={{ height: 100, width: 100 }}
           />
         </TouchableOpacity>
       </View>

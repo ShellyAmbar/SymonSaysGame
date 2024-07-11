@@ -34,24 +34,27 @@ const useLoginScreen = props => {
   }, [rects]);
 
   useEffect(() => {
-    if (SoundPlayer) {
-      try {
-        SoundPlayer.stop();
-      } catch (e) {
-        console.log(e);
+    let listener = null;
+    try {
+      if (SoundPlayer) {
+        SoundPlayer.playAsset(menuSound);
+
+        listener = SoundPlayer.addEventListener('FinishedPlaying', () => {
+          SoundPlayer.resume();
+        });
       }
-
-      SoundPlayer.playAsset(menuSound);
+      playRef?.current.play();
+      return () => {
+        try {
+          SoundPlayer.stop();
+        } catch (e) {
+          console.log(e);
+        }
+        listener?.remove();
+      };
+    } catch (e) {
+      console.log(e);
     }
-
-    const listener = SoundPlayer.addEventListener('FinishedPlaying', () => {
-      SoundPlayer.resume();
-    });
-    playRef?.current.play();
-    return () => {
-      SoundPlayer.stop();
-      listener.remove();
-    };
   }, [menuSound]);
 
   const createRects = useCallback(() => {
@@ -96,7 +99,8 @@ const useLoginScreen = props => {
       onChangeText('');
       dispatch(removePlayer(id));
       dispatch(deleteResult(id));
-      if (id.toLowerCase() === userName.toLowerCase()) {
+
+      if (id?.toLowerCase() === userName?.toLowerCase()) {
         dispatch(setUserName(null));
       }
     },
@@ -109,7 +113,6 @@ const useLoginScreen = props => {
     text,
     playRef,
     players,
-    dispatch,
     errorMessage,
     rects,
     deleteUser,

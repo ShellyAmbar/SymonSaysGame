@@ -15,14 +15,11 @@ export default StyleSheet.create({
   content: {
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     zIndex: 1,
-    //  paddingTop: 24,
-    //  paddingHorizontal: 20,
-    //  flex: 1,
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignItems: 'center',
     flexGrow: 1,
-    //   justifyContent: 'center',
     padding: 20,
+    flex: 1,
   },
   horizontal: {
     width: '100%',
@@ -31,10 +28,11 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 40,
+    fontSize: 45,
     color: GlobalColors.TextColors.white,
     textAlign: 'center',
     fontFamily: 'Silkscreen-Bold',
+    width: '100%',
   },
   subTitle: {
     fontSize: 18,
@@ -51,12 +49,14 @@ export default StyleSheet.create({
   },
 
   input: {
-    width: '80%',
+    width: '90%',
     borderBottomColor: '#FFFF',
     borderBottomWidth: 3,
     color: GlobalColors.TextColors.white,
     fontFamily: 'Silkscreen-Regular',
     paddingVertical: 5,
+    fontSize: 18,
+    textAlign: 'center',
   },
 
   background: {
@@ -76,7 +76,7 @@ export default StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 200,
+    paddingVertical: 50,
   },
   scrollContainer: {
     flexGrow: 1,
@@ -90,10 +90,14 @@ export default StyleSheet.create({
     paddingVertical: 5,
   },
   dropDown: {
-    flex: 1,
+    borderWidth: 1,
+    borderColor: '#FFF',
+    borderRadius: 30,
+    padding: 10,
   },
   dropDownList: {
-    maxHeight: 100,
+    maxHeight: 80,
+    borderWidth: 1,
   },
   dropDownContainer: {
     paddingBottom: 50,

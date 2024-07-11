@@ -17,13 +17,11 @@ export default StyleSheet.create({
     width: '100%',
     flexDirection: 'column',
     position: 'absolute',
-    top: 35,
-    borderWidth: 1,
-    borderColor: GlobalColors.TextColors.white,
+    top: 45,
     padding: 5,
   },
   contentContainerList: {
-    paddingBottom: 50,
+    paddingBottom: 100,
   },
   selectedText: {
     color: '#FFFF',

@@ -112,6 +112,14 @@ const useGameScreen = () => {
     } else if (buttons.length > 0) {
       createRandonButtonsSequence(lengthOfSequence);
     }
+
+    return () => {
+      try {
+        SoundPlayer?.stop();
+      } catch (e) {
+        console.log(e);
+      }
+    };
   }, [buttons.length]);
   useEffect(() => {
     if (
