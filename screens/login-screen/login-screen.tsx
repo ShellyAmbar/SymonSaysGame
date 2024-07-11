@@ -26,81 +26,21 @@ import { GlobalColors } from '../../assets/styles/colors';
 import DropDown from '../../components/drop-down/drop-down';
 import useSounds from '../../utils/hooks/useSounds';
 import SoundPlayer from 'react-native-sound-player';
+import useLoginScreen from './hooks/useLoginScreen';
 
 const LoginScreen = props => {
-  const [rects, setRects] = useState<Rect[]>([]);
-  const [text, onChangeText] = useState('');
-  const playRef = useRef(null);
-  const dispatch = useDispatch();
-  const [errorMessage, setErrorMessage] = useState(null);
-  const { players, userName } = useSelector(state => state.game);
-  const { menuSound } = useSounds();
-  useEffect(() => {
-    if (rects?.length > 0) {
-      let interval = setInterval(() => {
-        const randomRect = rects[Math.floor(Math.random() * rects.length)];
-        randomRect.ref.current?.simulateButtonPress();
-      }, 500);
-
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, [rects]);
-
-  useEffect(() => {
-    if (SoundPlayer) {
-      SoundPlayer.stop();
-      SoundPlayer.playAsset(menuSound);
-    }
-
-    const listener = SoundPlayer.addEventListener('FinishedPlaying', () => {
-      SoundPlayer.resume();
-    });
-    playRef?.current.play();
-    return () => {
-      SoundPlayer.stop();
-      listener.remove();
-    };
-  }, [menuSound]);
-
-  const createRects = useCallback(() => {
-    const list: Rect[] = [];
-    for (let i = 0; i < 30; i++) {
-      const ref = React.createRef();
-      list.push({
-        id: i,
-        color:
-          GlobalColors.buttonColors[
-            Math.floor(Math.random() * GlobalColors.buttonColors.length)
-          ],
-        ref: ref,
-      });
-    }
-    setRects([...list]);
-  }, []);
-
-  useEffect(() => {
-    createRects();
-  }, [createRects]);
-
-  const startGame = useCallback(() => {
-    if (text?.length > 0) {
-      dispatch(setUserName(text));
-      dispatch(addPlayer(text));
-      props.navigation.replace('Main');
-    } else {
-      if (userName?.length > 0) {
-        props.navigation.replace('Main');
-      } else {
-        setErrorMessage('You need to enter a nickname first');
-        setTimeout(() => {
-          setErrorMessage(null);
-        }, 2000);
-      }
-    }
-  }, [dispatch, props.navigation, text, setErrorMessage, userName]);
-
+  const {
+    userName,
+    startGame,
+    onChangeText,
+    text,
+    playRef,
+    players,
+    dispatch,
+    errorMessage,
+    rects,
+    deleteUser,
+  } = useLoginScreen(props);
   return (
     <View style={{ flex: 1 }}>
       <FlatList
@@ -120,7 +60,7 @@ const LoginScreen = props => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={Styles.content}>
-            <Spacer size={24} />
+            <Spacer size={64} />
             <Text style={Styles.title}>{'Simon Says'}</Text>
             <Spacer size={54} />
 
@@ -134,9 +74,7 @@ const LoginScreen = props => {
                 onChangeText={onChangeText}
                 value={text}
                 placeholder={
-                  players?.length > 0 && userName?.length > 0
-                    ? userName
-                    : 'Enter your your nickname'
+                  players?.length > 0 && userName?.length > 0 ? userName : ''
                 }
                 placeholderTextColor={'#FFFF'}
               />
@@ -152,13 +90,7 @@ const LoginScreen = props => {
                     <Text style={Styles.text}>select from the list</Text>
                     <Spacer size={18} isVertical={false} />
                     <DropDown
-                      onDeleteItem={id => {
-                        dispatch(removePlayer(id));
-                        dispatch(deleteResult(id));
-                        if (id.toLowerCase() === userName.toLowerCase()) {
-                          dispatch(setUserName(null));
-                        }
-                      }}
+                      onDeleteItem={deleteUser}
                       list={players}
                       onSelectItem={itemIndex => {
                         onChangeText(players[itemIndex].name);

@@ -56,7 +56,7 @@ export default StyleSheet.create({
     borderBottomWidth: 3,
     color: GlobalColors.TextColors.white,
     fontFamily: 'Silkscreen-Regular',
-    paddingVertical: 0,
+    paddingVertical: 5,
   },
 
   background: {
