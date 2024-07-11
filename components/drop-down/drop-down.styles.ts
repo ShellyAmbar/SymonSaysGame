@@ -22,6 +22,7 @@ export default StyleSheet.create({
   },
   contentContainerList: {
     paddingBottom: 100,
+    flexGrow: 1,
   },
   selectedText: {
     color: '#FFFF',

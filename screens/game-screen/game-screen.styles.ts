@@ -33,9 +33,9 @@ export default StyleSheet.create({
     left: 0,
   },
   nextLevelText: {
-    fontSize: 30,
+    fontSize: 50,
     color: GlobalColors.TextColors.white,
-
+    fontFamily: 'Silkscreen-Regular',
     borderRadius: 30,
     padding: 15,
   },

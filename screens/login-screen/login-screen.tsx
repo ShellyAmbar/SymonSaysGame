@@ -9,25 +9,17 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import Styles from './login-screen.styles';
 import Rectangle from './rectangle/rectangle';
-import { Rect } from './interfaces';
-import {
-  setUserName,
-  addPlayer,
-  removePlayer,
-} from '../../store/features/game/game-slice';
-import { deleteResult } from '../../store/features/results/results-slice';
-import { useDispatch, useSelector } from 'react-redux';
+
 import Spacer from '../../components/spacer/spacer';
 import LottieView from 'lottie-react-native';
-import { GlobalColors } from '../../assets/styles/colors';
-import DropDown from '../../components/drop-down/drop-down';
-import useSounds from '../../utils/hooks/useSounds';
-import SoundPlayer from 'react-native-sound-player';
-import useLoginScreen from './hooks/useLoginScreen';
 
+import DropDown from '../../components/drop-down/drop-down';
+
+import useLoginScreen from './hooks/useLoginScreen';
+import { BlurView } from '@react-native-community/blur';
 const LoginScreen = props => {
   const {
     userName,
@@ -41,7 +33,7 @@ const LoginScreen = props => {
     deleteUser,
   } = useLoginScreen(props);
   return (
-    <View style={{ flex: 1 }}>
+    <View style={Styles.container}>
       <FlatList
         style={Styles.background}
         data={rects}
@@ -52,18 +44,28 @@ const LoginScreen = props => {
         numColumns={3}
         contentContainerStyle={Styles.grid}
       />
-
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
+      <View
+        style={{
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          borderRadius: 30,
+          padding: 20,
+        }}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={Styles.content}>
-            <Spacer size={24} />
-            <Text style={Styles.title}>{'Simon Says'}</Text>
-            <Spacer size={54} />
+        <BlurView
+          style={Styles.absolute}
+          blurType="light"
+          blurAmount={10}
+          reducedTransparencyFallbackColor="white"
+        />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={Styles.content}>
+              <Spacer size={24} />
+              <Text style={Styles.title}>{'Simon Says'}</Text>
+              <Spacer size={54} />
 
-            <View style={Styles.contentContainer}>
               <TextInput
                 style={Styles.input}
                 onChangeText={onChangeText}
@@ -79,47 +81,49 @@ const LoginScreen = props => {
               {errorMessage?.length > 0 && (
                 <>
                   <Spacer size={8} />
-                  <Text style={Styles.errorText}>{errorMessage}</Text>{' '}
-                </>
-              )}
-
-              {players?.length > 0 && (
-                <>
-                  <Text style={Styles.subTitle}>OR</Text>
+                  <Text style={Styles.errorText}>{errorMessage}</Text>
                   <Spacer size={18} />
-                  <DropDown
-                    onDeleteItem={id => deleteUser(id)}
-                    list={players}
-                    onSelectItem={itemIndex => {
-                      onChangeText(players[itemIndex].name);
-                    }}
-                    iconColor="#FFFF"
-                    itemTextStyle={Styles.dropItemText}
-                    itemContainerStyle={Styles.itemContainerStyle}
-                    containerStyle={Styles.dropDown}
-                    listStyle={Styles.dropDownList}
-                    listContentContainer={Styles.dropDownContainer}
-                    selectedItemName={userName}
-                    selectedTextStyle={Styles.text}
-                  />
                 </>
               )}
-
-              <Spacer size={18} />
             </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-      <View style={Styles.playButton}>
-        <TouchableOpacity onPress={() => startGame()}>
-          <LottieView
-            source={require('../../assets/lotties/playBtn2.json')}
-            autoPlay
-            loop
-            ref={playRef}
-            style={{ height: 100, width: 100 }}
-          />
-        </TouchableOpacity>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+        <Spacer size={8} />
+        {players?.length > 0 && (
+          <>
+            <Text style={Styles.subTitle}>OR</Text>
+            <Spacer size={18} />
+            <DropDown
+              onDeleteItem={id => deleteUser(id)}
+              list={players}
+              onSelectItem={itemIndex => {
+                onChangeText(players[itemIndex].name);
+              }}
+              iconColor="#FFFF"
+              itemTextStyle={Styles.dropItemText}
+              itemContainerStyle={Styles.itemContainerStyle}
+              containerStyle={Styles.dropDown}
+              listStyle={Styles.dropDownList}
+              listContentContainer={Styles.dropDownContainer}
+              selectedItemName={userName}
+              selectedTextStyle={Styles.text}
+              data={null}
+              renderItem={null}
+            />
+          </>
+        )}
+        <Spacer size={120} />
+        <View style={Styles.playButton}>
+          <TouchableOpacity onPress={() => startGame()}>
+            <LottieView
+              source={require('../../assets/lotties/playBtn2.json')}
+              autoPlay
+              loop
+              ref={playRef}
+              style={{ height: 100, width: 100 }}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
