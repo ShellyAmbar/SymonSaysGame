@@ -16,13 +16,12 @@ export default StyleSheet.create({
   list: {
     width: '100%',
     flexDirection: 'column',
-    position: 'absolute',
-    top: 45,
+    // position: 'absolute',
+    // top: 45,
     padding: 5,
   },
   contentContainerList: {
     paddingBottom: 100,
-    flexGrow: 1,
   },
   selectedText: {
     color: '#FFFF',

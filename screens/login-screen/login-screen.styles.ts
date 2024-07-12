@@ -3,7 +3,8 @@ import { GlobalColors } from '../../assets/styles/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
-
+    // alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
     padding: 20,
   },
@@ -100,8 +101,8 @@ export default StyleSheet.create({
   },
   dropDownList: {
     maxHeight: 80,
-    borderWidth: 1,
-    borderColor: '#FFF',
+    // borderWidth: 1,
+    // borderColor: '#FFF',
   },
   dropDownContainer: {
     paddingBottom: 50,

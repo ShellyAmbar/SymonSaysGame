@@ -49,6 +49,9 @@ const LoginScreen = props => {
           backgroundColor: 'rgba(0, 0, 0, 0.3)',
           borderRadius: 30,
           padding: 20,
+          // height: '90%',
+          //  alignItems: 'center',
+          justifyContent: 'space-between',
         }}
       >
         <BlurView
@@ -112,7 +115,7 @@ const LoginScreen = props => {
             />
           </>
         )}
-        <Spacer size={120} />
+        <Spacer size={28} />
         <View style={Styles.playButton}>
           <TouchableOpacity onPress={() => startGame()}>
             <LottieView

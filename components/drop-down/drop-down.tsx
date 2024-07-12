@@ -50,9 +50,9 @@ const DropDown = ({
   );
 
   return (
-    <View style={[Styles.container, { ...containerStyle }]}>
+    <View style={[Styles.container]}>
       <TouchableOpacity
-        style={Styles.headerContainer}
+        style={[Styles.headerContainer, { ...containerStyle }]}
         onPress={() => {
           setIsOpen(!isOpen);
         }}
@@ -72,6 +72,7 @@ const DropDown = ({
 
       {isOpen && (
         <>
+          <Spacer size={12} />
           <FlatList
             ItemSeparatorComponent={() => <Spacer isVertical size={10} />}
             style={[Styles.list, { ...listStyle }]}
