@@ -44,26 +44,18 @@ const LoginScreen = props => {
         numColumns={3}
         contentContainerStyle={Styles.grid}
       />
-      <View
-        style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.3)',
-          borderRadius: 30,
-          padding: 20,
-          // height: '90%',
-          //  alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <BlurView
-          style={Styles.absolute}
-          blurType="light"
-          blurAmount={10}
-          reducedTransparencyFallbackColor="white"
-        />
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={Styles.circularView}>
+            <BlurView
+              style={Styles.absolute}
+              blurType="light"
+              blurAmount={10}
+              reducedTransparencyFallbackColor="white"
+            />
+
             <View style={Styles.content}>
               <Spacer size={24} />
               <Text style={Styles.title}>{'Simon Says'}</Text>
@@ -89,45 +81,46 @@ const LoginScreen = props => {
                 </>
               )}
             </View>
-          </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-        <Spacer size={8} />
-        {players?.length > 0 && (
-          <>
-            <Text style={Styles.subTitle}>OR</Text>
-            <Spacer size={18} />
-            <DropDown
-              onDeleteItem={id => deleteUser(id)}
-              list={players}
-              onSelectItem={itemIndex => {
-                onChangeText(players[itemIndex].name);
-              }}
-              iconColor="#FFFF"
-              itemTextStyle={Styles.dropItemText}
-              itemContainerStyle={Styles.itemContainerStyle}
-              containerStyle={Styles.dropDown}
-              listStyle={Styles.dropDownList}
-              listContentContainer={Styles.dropDownContainer}
-              selectedItemName={userName}
-              selectedTextStyle={Styles.text}
-              data={null}
-              renderItem={null}
-            />
-          </>
-        )}
-        <Spacer size={28} />
-        <View style={Styles.playButton}>
-          <TouchableOpacity onPress={() => startGame()}>
-            <LottieView
-              source={require('../../assets/lotties/playBtn2.json')}
-              autoPlay
-              loop
-              ref={playRef}
-              style={{ height: 100, width: 100 }}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+
+            <Spacer size={8} />
+            {players?.length > 0 && (
+              <>
+                <Text style={Styles.subTitle}>OR</Text>
+                <Spacer size={18} />
+                <DropDown
+                  onDeleteItem={id => deleteUser(id)}
+                  list={players}
+                  onSelectItem={itemIndex => {
+                    onChangeText(players[itemIndex].name);
+                  }}
+                  iconColor="#FFFF"
+                  itemTextStyle={Styles.dropItemText}
+                  itemContainerStyle={Styles.itemContainerStyle}
+                  containerStyle={Styles.dropDown}
+                  listStyle={Styles.dropDownList}
+                  listContentContainer={Styles.dropDownContainer}
+                  selectedItemName={userName}
+                  selectedTextStyle={Styles.text}
+                  data={null}
+                  renderItem={null}
+                />
+              </>
+            )}
+            <Spacer size={28} />
+            <View style={Styles.playButton}>
+              <TouchableOpacity onPress={() => startGame()}>
+                <LottieView
+                  source={require('../../assets/lotties/playBtn2.json')}
+                  autoPlay
+                  loop
+                  ref={playRef}
+                  style={{ height: 100, width: 100 }}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </View>
   );
 };

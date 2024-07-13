@@ -12,6 +12,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
+  circularView: {
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    borderRadius: 30,
+    padding: 20,
+    justifyContent: 'space-between',
+  },
 
   content: {
     zIndex: 1,
