@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
   text: {
     color: GlobalColors.TextColors.white,
-    fontSize: 16,
+    fontSize: 22,
     fontFamily: 'Silkscreen-Regular',
   },
 });

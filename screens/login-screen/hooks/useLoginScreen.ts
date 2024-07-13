@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { GlobalColors } from '../../../assets/styles/colors';
 import { Rect } from '../interfaces';
 import SoundPlayer from 'react-native-sound-player';
@@ -14,7 +14,6 @@ import { deleteResult } from '../../../store/features/results/results-slice';
 const useLoginScreen = props => {
   const [rects, setRects] = useState<Rect[]>([]);
   const [text, onChangeText] = useState('');
-  const playRef = useRef(null);
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState(null);
   const { players, userName } = useSelector(state => state.game);
@@ -43,7 +42,7 @@ const useLoginScreen = props => {
           SoundPlayer.resume();
         });
       }
-      playRef?.current.play();
+
       return () => {
         try {
           SoundPlayer.stop();
@@ -111,7 +110,6 @@ const useLoginScreen = props => {
     startGame,
     onChangeText,
     text,
-    playRef,
     players,
     errorMessage,
     rects,

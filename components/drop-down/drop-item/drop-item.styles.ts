@@ -6,7 +6,7 @@ export default StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    backgroundColor: 'rgba(255,255,255,0.2)',
     borderRadius: 10,
     paddingVertical: 10,
   },
@@ -18,7 +18,7 @@ export default StyleSheet.create({
 
   title: {
     color: GlobalColors.TextColors.primary,
-    fontSize: 16,
+    fontSize: 18,
     width: '100%',
     textAlign: 'center',
   },

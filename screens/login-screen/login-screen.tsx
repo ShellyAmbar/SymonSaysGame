@@ -12,21 +12,17 @@ import {
 import React from 'react';
 import Styles from './login-screen.styles';
 import Rectangle from './rectangle/rectangle';
-
 import Spacer from '../../components/spacer/spacer';
-import LottieView from 'lottie-react-native';
-
 import DropDown from '../../components/drop-down/drop-down';
-
 import useLoginScreen from './hooks/useLoginScreen';
 import { BlurView } from '@react-native-community/blur';
+import BouncingButton from '../../components/animated-view/animated-view';
 const LoginScreen = props => {
   const {
     userName,
     startGame,
     onChangeText,
     text,
-    playRef,
     players,
     errorMessage,
     rects,
@@ -88,6 +84,7 @@ const LoginScreen = props => {
                 <Text style={Styles.subTitle}>OR</Text>
                 <Spacer size={18} />
                 <DropDown
+                  placeHolderText={'Select from the list'}
                   onDeleteItem={id => deleteUser(id)}
                   list={players}
                   onSelectItem={itemIndex => {
@@ -99,25 +96,21 @@ const LoginScreen = props => {
                   containerStyle={Styles.dropDown}
                   listStyle={Styles.dropDownList}
                   listContentContainer={Styles.dropDownContainer}
-                  selectedItemName={userName}
+                  selectedItemName={''}
                   selectedTextStyle={Styles.text}
                   data={null}
                   renderItem={null}
                 />
               </>
             )}
-            <Spacer size={28} />
-            <View style={Styles.playButton}>
+            <Spacer size={58} />
+
+            <BouncingButton style={Styles.playButton}>
               <TouchableOpacity onPress={() => startGame()}>
-                <LottieView
-                  source={require('../../assets/lotties/playBtn2.json')}
-                  autoPlay
-                  loop
-                  ref={playRef}
-                  style={{ height: 100, width: 100 }}
-                />
+                <Text style={Styles.playButtonText}>{'Play'}</Text>
               </TouchableOpacity>
-            </View>
+            </BouncingButton>
+            <Spacer size={18} />
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

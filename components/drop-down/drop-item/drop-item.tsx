@@ -19,7 +19,11 @@ const DropItem = ({
         }}
         style={Styles.closeButton}
       >
-        <EvilIcons name="close" size={30} color={GlobalColors.buttonColors} />
+        <EvilIcons
+          name="close"
+          size={30}
+          color={GlobalColors.TextColors.white}
+        />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => onItemPressed(item.id)}

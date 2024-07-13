@@ -21,6 +21,7 @@ const DropDown = ({
   itemContainerStyle,
   renderItem,
   data,
+  placeHolderText = '',
   ...props
 }: DropDownProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +36,7 @@ const DropDown = ({
   const [selectedIndex, setSelectedIndex] = useState(
     selectedItemName && selectedItemName?.length > 0
       ? getSelectedItemIndexByName
-      : 0
+      : -1
   );
 
   const onItemPressed = useCallback(
@@ -66,7 +67,7 @@ const DropDown = ({
         <Spacer size={24} isVertical={false} />
 
         <Text style={[Styles.selectedText, { ...selectedTextStyle }]}>
-          {list[selectedIndex]?.name}
+          {placeHolderText}
         </Text>
       </TouchableOpacity>
 

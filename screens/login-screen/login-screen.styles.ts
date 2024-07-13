@@ -84,20 +84,24 @@ export default StyleSheet.create({
   },
   playButton: {
     width: '100%',
-    justifyContent: 'center',
     alignItems: 'center',
     zIndex: 4,
+  },
+  playButtonText: {
+    color: '#FFFF',
+    fontSize: 36,
+    fontFamily: 'Silkscreen-Regular',
   },
   scrollContainer: {
     flexGrow: 1,
   },
   dropItemText: {
     color: '#FFFF',
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Silkscreen-Regular',
   },
   itemContainerStyle: {
-    paddingVertical: 5,
+    paddingVertical: 10,
   },
   dropDown: {
     borderWidth: 1,
@@ -106,7 +110,7 @@ export default StyleSheet.create({
     padding: 10,
   },
   dropDownList: {
-    maxHeight: 80,
+    maxHeight: 100,
     // borderWidth: 1,
     // borderColor: '#FFF',
   },

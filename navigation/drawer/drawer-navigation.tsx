@@ -7,21 +7,20 @@ function DrawerNavigation() {
   const Drawer = createDrawerNavigator();
   return (
     <Drawer.Navigator
-      initialRouteName="BottomNav"
       screenOptions={{
         drawerStyle: { backgroundColor: 'transparent' },
         headerStyle: { height: 50 },
-        activeTintColor: '#e91e63',
+        activeTintColor: '#FFF',
         itemStyle: { marginVertical: 10 },
-        drawerStatusBarAnimation: 'fade',
       }}
       drawerContent={props => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen
         name="BottomNav"
         options={{
+          drawerLabel: () => null,
           headerTitle: '',
-          title: 'Game',
+          title: '',
           drawerLabelStyle: {
             color: GlobalColors.TextColors.white,
             fontFamily: 'Silkscreen-Bold',

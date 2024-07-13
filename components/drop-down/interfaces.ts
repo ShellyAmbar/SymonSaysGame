@@ -13,6 +13,7 @@ interface DropDownProps extends FlatListProps<any> {
   listStyle?: ViewStyle;
   listContentContainer?: ViewStyle;
   itemContainerStyle?: ViewStyle;
+  placeHolderText?: string;
 }
 
 export default DropDownProps;
