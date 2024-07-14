@@ -134,6 +134,7 @@ const useGameScreen = () => {
   }, [currentLevel, randomSequence?.length?.toString()]);
 
   const onFailure = useCallback(() => {
+    setIsButtnosEnabled(false);
     setShowCountDown(false);
     const timeout1 = setTimeout(() => {
       SoundPlayer.playAsset(faileLevelSound);

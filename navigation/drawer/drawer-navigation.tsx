@@ -18,15 +18,8 @@ function DrawerNavigation() {
       <Drawer.Screen
         name="BottomNav"
         options={{
-          drawerLabel: () => null,
-          headerTitle: '',
           title: '',
-          drawerLabelStyle: {
-            color: GlobalColors.TextColors.white,
-            fontFamily: 'Silkscreen-Bold',
-          },
           headerStyle: { backgroundColor: GlobalColors.Brand.primary },
-
           headerTintColor: GlobalColors.TextColors.white,
         }}
         component={BottomNavigation}

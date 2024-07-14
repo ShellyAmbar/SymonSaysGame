@@ -7,7 +7,6 @@ import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import Styles from './custom-drawer.styles';
 import Spacer from '../../../components/spacer/spacer';
-import { GlobalColors } from '../../../assets/styles/colors';
 
 const CustomDrawerContent = props => {
   const { userName } = useSelector(state => state.game);
@@ -21,7 +20,7 @@ const CustomDrawerContent = props => {
         <Text style={Styles.title}>{`Hey\n${userName}`}</Text>
       </View>
       <Spacer size={20} />
-      <DrawerItemList {...props} />
+      {/* <DrawerItemList {...props} /> */}
       <DrawerItem
         labelStyle={Styles.text}
         label="Logout"
