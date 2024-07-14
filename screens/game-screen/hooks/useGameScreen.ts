@@ -43,8 +43,7 @@ const useGameScreen = () => {
           id: i,
           name: GlobalColors.buttonColors[i],
           ref: ref,
-          soundWav:
-            buttonSounds[Math.floor(Math.random() * buttonSounds.length)],
+          soundWav: buttonSounds[i],
         });
       }
 
@@ -137,26 +136,20 @@ const useGameScreen = () => {
     setIsButtnosEnabled(false);
     setShowCountDown(false);
     const timeout1 = setTimeout(() => {
-      SoundPlayer.playAsset(faileLevelSound);
+      try {
+        SoundPlayer.playAsset(faileLevelSound);
+      } catch (e) {
+        console.log(e);
+      }
+
       clearTimeout(timeout1);
     }, 300);
 
     const timeout = setTimeout(() => {
-      if (results?.length > 0) {
-        setIsModalScoresVisible(true);
-      } else {
-        playLevelSequence(randomSequence);
-      }
+      playLevelSequence(randomSequence);
       clearTimeout(timeout);
-    }, 2000);
-  }, [
-    setIsModalScoresVisible,
-    playLevelSequence,
-    setShowCountDown,
-    results?.length,
-    faileLevelSound,
-    randomSequence,
-  ]);
+    }, 1500);
+  }, [playLevelSequence, setShowCountDown, faileLevelSound, randomSequence]);
 
   const onButtonPressed = useCallback(
     (button: ColorButton) => {
@@ -178,7 +171,12 @@ const useGameScreen = () => {
             })
           );
           const timeout1 = setTimeout(() => {
-            SoundPlayer.playAsset(successLevelSound);
+            try {
+              SoundPlayer.playAsset(successLevelSound);
+            } catch (e) {
+              console.log(e);
+            }
+
             clearTimeout(timeout1);
           }, 300);
           animationRef.current?.play();

@@ -10,8 +10,7 @@ function DrawerNavigation() {
       screenOptions={{
         drawerStyle: { backgroundColor: 'transparent' },
         headerStyle: { height: 50 },
-        activeTintColor: '#FFF',
-        itemStyle: { marginVertical: 10 },
+        drawerItemStyle: { padding: 15 },
       }}
       drawerContent={props => <CustomDrawerContent {...props} />}
     >

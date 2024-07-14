@@ -35,6 +35,9 @@ const ScoresScreen = memo(() => {
       <Spacer size={14} />
       <Text style={Styles.title}>Top scores</Text>
       <Spacer size={26} />
+      {!isLoading && sortedListOfResults?.length === 0 && (
+        <Text style={Styles.subTitle}>{'No results yet..'}</Text>
+      )}
       <ListWithLoading
         style={Styles.list}
         contentContainerStyle={Styles.content}
@@ -46,6 +49,7 @@ const ScoresScreen = memo(() => {
         keyExtractor={(item, index) => item.dateCreated.toString()}
         ItemSeparatorComponent={itemSeperator}
       />
+
       <Spacer size={30} />
     </View>
   );

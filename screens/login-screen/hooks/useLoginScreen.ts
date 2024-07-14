@@ -34,26 +34,31 @@ const useLoginScreen = props => {
 
   useEffect(() => {
     let listener = null;
-    try {
-      if (SoundPlayer) {
-        SoundPlayer.playAsset(menuSound);
 
-        listener = SoundPlayer.addEventListener('FinishedPlaying', () => {
-          SoundPlayer.resume();
-        });
+    if (SoundPlayer) {
+      try {
+        SoundPlayer.playAsset(menuSound);
+      } catch (e) {
+        console.log(e);
       }
 
-      return () => {
+      listener = SoundPlayer.addEventListener('FinishedPlaying', () => {
         try {
-          SoundPlayer.stop();
+          SoundPlayer.resume();
         } catch (e) {
           console.log(e);
         }
-        listener?.remove();
-      };
-    } catch (e) {
-      console.log(e);
+      });
     }
+
+    return () => {
+      try {
+        SoundPlayer.stop();
+      } catch (e) {
+        console.log('SoundPlayer', e);
+      }
+      listener?.remove();
+    };
   }, [menuSound]);
 
   const createRects = useCallback(() => {

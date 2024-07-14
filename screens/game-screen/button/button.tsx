@@ -3,7 +3,6 @@ import React, { forwardRef, memo, useImperativeHandle, useRef } from 'react';
 import { ButtonProps } from './interfaces';
 import Styles from './button.styles';
 import SoundPlayer from 'react-native-sound-player';
-import { promiseTimeout } from '../../../utils/hooks/promises';
 
 const Button = memo(
   forwardRef(
@@ -14,7 +13,11 @@ const Button = memo(
       useImperativeHandle(ref, () => ({
         simulateButtonPress: async () =>
           new Promise<void>(async (resolve, reject) => {
-            SoundPlayer.playAsset(button.soundWav);
+            try {
+              SoundPlayer.playAsset(button.soundWav);
+            } catch (e) {
+              console.log(e);
+            }
             onPressIn();
             const timeout = setTimeout(() => {
               onPressOut();
@@ -49,7 +52,11 @@ const Button = memo(
             onPressIn={() => onPressIn()}
             onPressOut={() => onPressOut()}
             onPress={() => {
-              SoundPlayer.playAsset(button.soundWav);
+              try {
+                SoundPlayer.playAsset(button.soundWav);
+              } catch (e) {
+                console.log(e);
+              }
               onButtonPressed && onButtonPressed(button);
             }}
             key={button.id}
