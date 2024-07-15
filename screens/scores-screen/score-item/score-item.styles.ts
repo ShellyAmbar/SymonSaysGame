@@ -3,7 +3,7 @@ import { GlobalColors } from '../../../assets/styles/colors';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: GlobalColors.Brand.secondary,
 
     alignItems: 'center',
     justifyContent: 'space-between',

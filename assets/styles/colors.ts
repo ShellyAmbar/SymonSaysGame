@@ -18,9 +18,9 @@ export const GlobalColors = {
     // primary: '#1E90FF',
     // secondary: '#00BFFF',
     // thierd: '#00CED1',
-    primary: 'rgba(0,0,0,0.9)',
-    secondary: 'rgba(0,0,0,0.8)',
-    thierd: 'rgba(0,0,0,0.7)',
+    primary: '#0d0d0d',
+    secondary: '#191919',
+    thierd: '#262626',
   },
   Border: '#D7D9DE',
   SystemColors: {

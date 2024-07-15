@@ -11,36 +11,44 @@ const Button = memo(
       ref: any
     ) => {
       useImperativeHandle(ref, () => ({
-        simulateButtonPress: async () =>
-          new Promise<void>(async (resolve, reject) => {
-            try {
-              SoundPlayer.playAsset(button.soundWav);
-            } catch (e) {
-              console.log(e);
-            }
-            onPressIn();
-            const timeout = setTimeout(() => {
-              onPressOut();
-              clearTimeout(timeout);
-              resolve();
-            }, 300);
-          }),
+        simulateButtonPress: () => {
+          pressInAndOut();
+          try {
+            SoundPlayer.playAsset(button.soundWav);
+          } catch (e) {
+            console.log(e);
+          }
+        },
       }));
 
       const scaleValue = useRef(new Animated.Value(1)).current;
+      const pressInAndOut = () => {
+        Animated.sequence([
+          Animated.timing(scaleValue, {
+            toValue: 0.8,
+            duration: 200,
+            useNativeDriver: true,
+          }),
+          Animated.timing(scaleValue, {
+            toValue: 1,
+            duration: 200,
+            useNativeDriver: true,
+          }),
+        ]).start();
+      };
 
       const onPressIn = () => {
-        Animated.spring(scaleValue, {
+        Animated.timing(scaleValue, {
           toValue: 0.8,
+          duration: 200,
           useNativeDriver: true,
         }).start();
       };
 
       const onPressOut = () => {
-        Animated.spring(scaleValue, {
+        Animated.timing(scaleValue, {
           toValue: 1,
-          friction: 3,
-          tension: 40,
+          duration: 200,
           useNativeDriver: true,
         }).start();
       };

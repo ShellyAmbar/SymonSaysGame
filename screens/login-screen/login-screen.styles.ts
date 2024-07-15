@@ -31,7 +31,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 45,
+    fontSize: 40,
     color: GlobalColors.TextColors.white,
     textAlign: 'center',
     fontFamily: 'Silkscreen-Bold',

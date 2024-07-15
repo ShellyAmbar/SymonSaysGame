@@ -18,7 +18,10 @@ function DrawerNavigation() {
         name="BottomNav"
         options={{
           title: '',
-          headerStyle: { backgroundColor: GlobalColors.Brand.primary },
+          headerStyle: {
+            backgroundColor: GlobalColors.Brand.primary,
+            elevation: 0,
+          },
           headerTintColor: GlobalColors.TextColors.white,
         }}
         component={BottomNavigation}

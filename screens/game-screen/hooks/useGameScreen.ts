@@ -56,27 +56,20 @@ const useGameScreen = () => {
       if (randomSequence?.length > 0) {
         setIsButtnosEnabled(false);
 
-        const timeoutEnableButtons = setTimeout(() => {
-          setIsButtnosEnabled(true);
+        let index = 0;
+        const intervalId = setInterval(() => {
+          if (index <= currentLevel) {
+            buttons[
+              randomSequence[index].id
+            ].ref?.current?.simulateButtonPress();
 
-          clearTimeout(timeoutEnableButtons);
-        }, currentLevel * 500 + 1000);
-
-        const timeout = setTimeout(() => {
-          for (let i = 0; i <= currentLevel; i++) {
-            const timeoutPlayButton = setTimeout(async () => {
-              await buttons[
-                randomSequence[i].id
-              ].ref?.current?.simulateButtonPress();
-              if (i === currentLevel) {
-                setShowCountDown(true);
-              }
-              clearTimeout(timeoutPlayButton);
-            }, 800 * i);
+            index++;
+          } else {
+            setShowCountDown(true);
+            setIsButtnosEnabled(true);
+            clearInterval(intervalId);
           }
-
-          clearTimeout(timeout);
-        }, 0);
+        }, 1000);
       }
     },
     [buttons, currentLevel]
