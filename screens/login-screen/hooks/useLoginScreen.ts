@@ -53,7 +53,11 @@ const useLoginScreen = props => {
 
     return () => {
       try {
-        SoundPlayer.stop();
+        SoundPlayer.getInfo().then(res => {
+          if (res.duration > 0) {
+            SoundPlayer.stop();
+          }
+        });
       } catch (e) {
         console.log('SoundPlayer', e);
       }
@@ -96,7 +100,7 @@ const useLoginScreen = props => {
         }, 2000);
       }
     }
-  }, [dispatch, text, setErrorMessage, userName]);
+  }, [dispatch, text, setErrorMessage, userName, props.navigation]);
 
   const deleteUser = useCallback(
     (id: string) => {

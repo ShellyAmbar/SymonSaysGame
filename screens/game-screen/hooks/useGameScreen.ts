@@ -112,13 +112,15 @@ const useGameScreen = () => {
       createRandonButtonsSequence(lengthOfSequence);
     }
 
-    return () => {
-      try {
-        SoundPlayer?.stop();
-      } catch (e) {
-        console.log(e);
-      }
-    };
+    try {
+      SoundPlayer.getInfo().then(res => {
+        if (res.duration > 0) {
+          SoundPlayer.stop();
+        }
+      });
+    } catch (e) {
+      console.log('SoundPlayer', e);
+    }
   }, [buttons.length]);
   useEffect(() => {
     if (
@@ -171,6 +173,7 @@ const useGameScreen = () => {
             })
           );
           const timeout1 = setTimeout(() => {
+            setIsFinishLevel(true);
             try {
               SoundPlayer.playAsset(successLevelSound);
             } catch (e) {
@@ -178,16 +181,15 @@ const useGameScreen = () => {
             }
 
             clearTimeout(timeout1);
-          }, 300);
+          }, 600);
           animationRef.current?.play();
 
-          setIsFinishLevel(true);
           setShowCountDown(false);
           const timeout = setTimeout(() => {
             setIsFinishLevel(false);
             setCurrentLevel(prevval => prevval + 1);
             clearTimeout(timeout);
-          }, 3000);
+          }, 3500);
           return 0;
         } else if (
           prev < currentLevel &&

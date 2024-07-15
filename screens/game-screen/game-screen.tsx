@@ -86,7 +86,7 @@ const GameScreen = () => {
             ref={animationRef}
           />
           <Text style={Styles.nextLevelText}>
-            {` Level ${currentLevel + 1}`}
+            {`Level ${currentLevel + 1}`}
           </Text>
         </View>
       )}

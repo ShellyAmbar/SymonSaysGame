@@ -36,7 +36,8 @@ export default StyleSheet.create({
     fontSize: 50,
     color: GlobalColors.TextColors.white,
     fontFamily: 'Silkscreen-Regular',
-    borderRadius: 30,
     padding: 15,
+    textAlign: 'center',
+    width: '100%',
   },
 });

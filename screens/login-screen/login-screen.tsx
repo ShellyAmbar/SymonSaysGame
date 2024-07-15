@@ -15,7 +15,6 @@ import Rectangle from './rectangle/rectangle';
 import Spacer from '../../components/spacer/spacer';
 import DropDown from '../../components/drop-down/drop-down';
 import useLoginScreen from './hooks/useLoginScreen';
-import { BlurView } from '@react-native-community/blur';
 import BouncingButton from '../../components/animated-view/animated-view';
 const LoginScreen = props => {
   const {
@@ -45,13 +44,6 @@ const LoginScreen = props => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={Styles.circularView}>
-            <BlurView
-              style={Styles.absolute}
-              blurType="light"
-              blurAmount={10}
-              reducedTransparencyFallbackColor="white"
-            />
-
             <View style={Styles.content}>
               <Spacer size={24} />
               <Text style={Styles.title}>{'Simon Says'}</Text>
@@ -64,7 +56,7 @@ const LoginScreen = props => {
                 placeholder={
                   players?.length > 0 && userName?.length > 0
                     ? userName
-                    : 'Enter your nickname'
+                    : 'Enter your name'
                 }
                 placeholderTextColor={'#FFFF'}
               />
@@ -103,7 +95,7 @@ const LoginScreen = props => {
                 />
               </>
             )}
-            <Spacer size={58} />
+            <Spacer size={38} />
 
             <BouncingButton style={Styles.playButton}>
               <TouchableOpacity onPress={() => startGame()}>

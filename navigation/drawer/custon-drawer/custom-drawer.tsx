@@ -20,7 +20,7 @@ const CustomDrawerContent = props => {
         <Text style={Styles.title}>{`Hey\n${userName}`}</Text>
       </View>
       <Spacer size={20} />
-      {/* <DrawerItemList {...props} /> */}
+
       <DrawerItem
         labelStyle={Styles.text}
         label="Logout"

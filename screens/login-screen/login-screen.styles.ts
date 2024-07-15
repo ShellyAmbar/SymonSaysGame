@@ -44,7 +44,7 @@ export default StyleSheet.create({
     fontFamily: 'Silkscreen-Regular',
   },
   text: {
-    fontSize: 16,
+    fontSize: 14,
     color: GlobalColors.TextColors.white,
     textAlign: 'center',
     flex: 1,
@@ -58,7 +58,7 @@ export default StyleSheet.create({
     color: GlobalColors.TextColors.white,
     fontFamily: 'Silkscreen-Regular',
     paddingVertical: 5,
-    fontSize: 22,
+    fontSize: 16,
     textAlign: 'center',
   },
 
@@ -97,11 +97,12 @@ export default StyleSheet.create({
   },
   dropItemText: {
     color: '#FFFF',
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Silkscreen-Regular',
   },
   itemContainerStyle: {
     paddingVertical: 10,
+    paddingHorizontal: 15,
   },
   dropDown: {
     borderWidth: 1,
@@ -115,7 +116,7 @@ export default StyleSheet.create({
     // borderColor: '#FFF',
   },
   dropDownContainer: {
-    paddingBottom: 50,
+    paddingBottom: 10,
   },
   errorText: {
     fontSize: 18,
