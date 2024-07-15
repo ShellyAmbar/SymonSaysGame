@@ -37,34 +37,18 @@ const Button = memo(
         ]).start();
       };
 
-      const onPressIn = () => {
-        Animated.timing(scaleValue, {
-          toValue: 0.8,
-          duration: 200,
-          useNativeDriver: true,
-        }).start();
-      };
-
-      const onPressOut = () => {
-        Animated.timing(scaleValue, {
-          toValue: 1,
-          duration: 200,
-          useNativeDriver: true,
-        }).start();
-      };
-
       return (
         <>
           <TouchableWithoutFeedback
             ref={ref}
-            onPressIn={() => onPressIn()}
-            onPressOut={() => onPressOut()}
+            onPressIn={() => pressInAndOut()}
             onPress={() => {
               try {
                 SoundPlayer.playAsset(button.soundWav);
               } catch (e) {
                 console.log(e);
               }
+
               onButtonPressed && onButtonPressed(button);
             }}
             key={button.id}
